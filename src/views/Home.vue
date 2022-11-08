@@ -10,178 +10,26 @@
           loop
           playsinline
           autoplay
-          poster="//sf3-ttcdn-tos.pstatp.com/obj/ttfe/ATSX/mainland/video-poster_1576231362701.png"
-          src="//sf1-ttcdn-tos.pstatp.com/obj/ttfe/ATSX/mainland/gongquhunjian_1080.min.mp4"
+          src="../video-1080p.mp4"
           tabindex="-1"
         ></video>
       </div>
       <h1 class="banner-title">
-        和优秀的人 做有挑战的事
-        <div class="subTitle">JOIN BYTEDANCE</div>
+        NJU Image Caption
+        <div class="subTitle">南京大学自然语言处理实验室</div>
       </h1>
       <div class="search">
-        <input-search @search="searchJobs" placeholder="输入城市或职位进行搜索"></input-search>
+        <input-search @search="searchJobs" placeholder="输入图片链接或者上传图片以产生描述"></input-search>
       </div>
-      <div class="bottom-tips">
+      <!-- <div class="bottom-tips">
         <span class="arrow-down" @click="scrollDown">
           <i>⤓</i>
         </span>
         <span class="vertical-dashed"></span>
-      </div>
-    </div>
-
-    <!-- 产品 -->
-    <div class="main">
-      <div ref="product" class="product content-item-block">
-        <h1 class="title">Inspire creativity, enrich life</h1>
-        <div class="desc">截至目前，字节跳动产品已覆盖超过 150 个国家和地区，75 个语种</div>
-        <ul class="product-list">
-          <li
-            class="product-item"
-            v-for="(item, key) in products"
-            :key="key"
-            @click="jumpToDetail(item)"
-          >
-            <img :src="item.logo" alt />
-            <div>{{ item.title }}</div>
-          </li>
-        </ul>
-        <router-link to="/products">
-          <div class="more">
-            <!-- <span class="more-button">了解更多</span> -->
-            <bytedance-button size="large">了解更多</bytedance-button>
-          </div>
-        </router-link>
-      </div>
-
-      <!-- 职位 -->
-      <div class="job-category content-item-block">
-        <h2 class="job-category-title title">探索你感兴趣的职位</h2>
-        <ul class="job-category-list clearfix">
-          <li v-for="item in jobCategories" :key="item.id" class="job-category-item">
-            <router-link :to="{ name: 'jobs', params: { job_category_id: item.id } }">
-              <div class="image" :style="`backgroundImage:url(${item.image})`">
-                <span class="overlay" v-if="!item.id">{{ item.zh_name }}</span>
-              </div>
-              <div v-if="item.id" class="name">{{ item.zh_name }}</div>
-            </router-link>
-          </li>
-        </ul>
-      </div>
-
-      <!-- 字节范 -->
-      <div class="byteStandard content-item-block">
-        <h1 class="title">字节范</h1>
-        <div class="desc">字节范是字节跳动企业文化的重要组成部分，是我们共同认可的行为准则</div>
-        <div class="content">
-          <div class="image">
-            <span
-              v-show="productLayerVisible"
-              class="layer"
-              @animationend="onScrollRightAnimationEnd"
-            ></span>
-            <img
-              v-if="byteStandards[byteStandardActiveIndex]"
-              width="100%"
-              height="100%"
-              :src="byteStandards[byteStandardActiveIndex].image"
-              alt
-            />
-          </div>
-          <div class="indicator">
-            <ul>
-              <li class="indicator-item" v-for="(item, index) in byteStandards" :key="index">
-                <h3
-                  :class="{ active: byteStandardActiveIndex === index }"
-                  @click="
-                  () => {
-                    byteStandardActiveIndex = index;
-                    productLayerVisible = true;
-                  }
-                "
-                >{{ item.title }}</h3>
-                <p v-html="item.content" v-show="byteStandardActiveIndex === index"></p>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-
-      <!-- 字节生活 -->
-      <div class="byteLife content-item-block">
-        <h1 class="byteLife-title">字节生活</h1>
-        <div class="block-item block-item-one">
-          <div class="block-item-column block-item-column-text">
-            <h2 class="block-item-column-title">在扁平开放的氛围 里工作</h2>
-            <div class="content">
-              <div class="content-item">
-                <h2 class="content-item-title">务实扁平的工作氛围</h2>
-                <p class="content-item-desc">不讲 title 和层级，敢于授权新人，专注完成业务目标，没有领地意识</p>
-              </div>
-              <div class="content-item">
-                <h2 class="content-item-title">务实扁平的工作氛围</h2>
-                <p class="content-item-desc">不讲 title 和层级，敢于授权新人，专注完成业务目标，没有领地意识</p>
-              </div>
-              <div class="content-item">
-                <h2 class="content-item-title">务实扁平的工作氛围</h2>
-                <p class="content-item-desc">不讲 title 和层级，敢于授权新人，专注完成业务目标，没有领地意识</p>
-              </div>
-            </div>
-          </div>
-          <div class="block-item-column block-item-column-image">
-            <img src="https://sf3-ttcdn-tos.pstatp.com/obj/ttfe/ATSX/mainland/life_1.png" alt />
-          </div>
-        </div>
-
-        <div class="block-item block-item-one">
-          <div class="block-item-column block-item-column-text">
-            <h2 class="block-item-column-title">在扁平开放的氛围 里工作</h2>
-            <div class="content">
-              <div class="content-item">
-                <h2 class="content-item-title">务实扁平的工作氛围</h2>
-                <p class="content-item-desc">不讲 title 和层级，敢于授权新人，专注完成业务目标，没有领地意识</p>
-              </div>
-              <div class="content-item">
-                <h2 class="content-item-title">务实扁平的工作氛围</h2>
-                <p class="content-item-desc">不讲 title 和层级，敢于授权新人，专注完成业务目标，没有领地意识</p>
-              </div>
-              <div class="content-item">
-                <h2 class="content-item-title">务实扁平的工作氛围</h2>
-                <p class="content-item-desc">不讲 title 和层级，敢于授权新人，专注完成业务目标，没有领地意识</p>
-              </div>
-            </div>
-          </div>
-          <div class="block-item-column block-item-column-image">
-            <img src="https://sf3-ttcdn-tos.pstatp.com/obj/ttfe/ATSX/mainland/life_1.png" alt />
-          </div>
-        </div>
-      </div>
-
-      <!-- 员工故事 -->
-      <div class="staffStory content-item-block">
-        <h2 class="title">员工故事</h2>
-        <ul class="staffStory-list clearfix">
-          <router-link
-            tag="li"
-            :to="`/staff-stories/${item.id}`"
-            v-for="item in staffStories"
-            :key="item.id"
-            class="staffStory-item"
-          >
-            <div class="avatar">
-              <img width="100%" :src="item.avatar" alt srcset />
-            </div>
-            <div class="text">
-              <h2 class="title">{{ item.title }}</h2>
-              <div class="desc">{{ item.name }}&nbsp;|&nbsp;{{ item.department }}</div>
-              <p class="remark">{{ item.remark }}</p>
-            </div>
-            <div class="circular-button">→</div>
-          </router-link>
-        </ul>
-      </div>
+      </div> -->
     </div>
   </div>
+
 </template>
 
 <script>
@@ -386,289 +234,289 @@ export default {
   }
 }
 
-// 产品
-.product {
-  margin-top: 40px;
-  text-align: center;
-  padding: 40px 40px;
-  background: url(//sf1-ttcdn-tos.pstatp.com/obj/ttfe/ATSX/mainland/global.png);
-  background-size: 100%;
-  background-repeat: no-repeat;
-  background-position: 0 370px;
-  .desc {
-    margin: 40px 0;
-  }
-  &-list {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-  }
-  &-item {
-    width: 90px;
-    // height: 90px;
-    cursor: pointer;
-    &:nth-child(1),
-    &:nth-child(9) {
-      margin-top: 116px;
-    }
-    &:nth-child(2),
-    &:nth-child(8) {
-      margin-top: 80px;
-    }
-    &:nth-child(3),
-    &:nth-child(7) {
-      margin-top: 55px;
-    }
-    &:nth-child(4),
-    &:nth-child(6) {
-      margin-top: 30px;
-    }
-    &:hover {
-      color: @main-color;
-      img {
-        border-radius: 19px;
+// // 产品
+// .product {
+//   margin-top: 40px;
+//   text-align: center;
+//   padding: 40px 40px;
+//   background: url(//sf1-ttcdn-tos.pstatp.com/obj/ttfe/ATSX/mainland/global.png);
+//   background-size: 100%;
+//   background-repeat: no-repeat;
+//   background-position: 0 370px;
+//   .desc {
+//     margin: 40px 0;
+//   }
+//   &-list {
+//     display: flex;
+//     justify-content: space-between;
+//     width: 100%;
+//   }
+//   &-item {
+//     width: 90px;
+//     // height: 90px;
+//     cursor: pointer;
+//     &:nth-child(1),
+//     &:nth-child(9) {
+//       margin-top: 116px;
+//     }
+//     &:nth-child(2),
+//     &:nth-child(8) {
+//       margin-top: 80px;
+//     }
+//     &:nth-child(3),
+//     &:nth-child(7) {
+//       margin-top: 55px;
+//     }
+//     &:nth-child(4),
+//     &:nth-child(6) {
+//       margin-top: 30px;
+//     }
+//     &:hover {
+//       color: @main-color;
+//       img {
+//         border-radius: 19px;
 
-        transform: scale(1.2);
-        transform-origin: bottom;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-      }
-    }
-    img {
-      width: 90px;
-      height: 90px;
-      border-radius: 19px;
+//         transform: scale(1.2);
+//         transform-origin: bottom;
+//         box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+//       }
+//     }
+//     img {
+//       width: 90px;
+//       height: 90px;
+//       border-radius: 19px;
 
-      margin-bottom: 10px;
-      transition: transform 0.3s;
-    }
-  }
-  .more {
-    margin: auto;
-    margin-top: 170px;
+//       margin-bottom: 10px;
+//       transition: transform 0.3s;
+//     }
+//   }
+//   .more {
+//     margin: auto;
+//     margin-top: 170px;
 
-    width: 149px;
-  }
-}
+//     width: 149px;
+//   }
+// }
 
 // 职位
 
-.job-category {
-  text-align: center;
-  margin-top: 90px;
+// .job-category {
+//   text-align: center;
+//   margin-top: 90px;
 
-  &-list {
-    margin-top: 70px;
-  }
-  &-item {
-    float: left;
-    margin-bottom: 16px;
-    .image {
-      width: 250px;
-      height: 250px;
-      line-height: 250px;
-      background-repeat: no-repeat;
-      background-size: 100%;
-      border-radius: 50%;
-      margin: 0 auto;
+//   &-list {
+//     margin-top: 70px;
+//   }
+//   &-item {
+//     float: left;
+//     margin-bottom: 16px;
+//     .image {
+//       width: 250px;
+//       height: 250px;
+//       line-height: 250px;
+//       background-repeat: no-repeat;
+//       background-size: 100%;
+//       border-radius: 50%;
+//       margin: 0 auto;
 
-      transition: all 0.3s;
-      background-position: center;
-      overflow: hidden;
-      &:hover {
-        box-shadow: 0 0 8px 1px #ccc;
-        background-size: 110%;
-        & + .name {
-          color: @main-color;
-        }
-      }
-      .overlay {
-        display: inline-block;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0, 0, 0, 0.5);
-        color: #fff;
+//       transition: all 0.3s;
+//       background-position: center;
+//       overflow: hidden;
+//       &:hover {
+//         box-shadow: 0 0 8px 1px #ccc;
+//         background-size: 110%;
+//         & + .name {
+//           color: @main-color;
+//         }
+//       }
+//       .overlay {
+//         display: inline-block;
+//         width: 100%;
+//         height: 100%;
+//         background-color: rgba(0, 0, 0, 0.5);
+//         color: #fff;
 
-        font-size: 40px;
-      }
-    }
-    .name {
-      margin-top: 23px;
-      font-size: @font-size-large;
-    }
-    margin: 0 2.5%;
-    margin-bottom: 30px;
-    width: 20%;
-  }
-}
+//         font-size: 40px;
+//       }
+//     }
+//     .name {
+//       margin-top: 23px;
+//       font-size: @font-size-large;
+//     }
+//     margin: 0 2.5%;
+//     margin-bottom: 30px;
+//     width: 20%;
+//   }
+// }
 
-// 字节范
+// // 字节范
 
-.byteStandard {
-  padding: 40px 40px;
-  overflow: hidden;
-  .title {
-    margin-bottom: 30px;
-  }
-  .desc {
-    margin-bottom: 40px;
-  }
-  .content {
-    .image {
-      .layer {
-        // left: -100%;
-        width: 100%;
-        top: 0;
-        bottom: 0;
-        background: rgba(255, 255, 255, 0.8);
-        position: absolute;
-        animation: scrollToRight 0.8s ease-in-out;
-      }
+// .byteStandard {
+//   padding: 40px 40px;
+//   overflow: hidden;
+//   .title {
+//     margin-bottom: 30px;
+//   }
+//   .desc {
+//     margin-bottom: 40px;
+//   }
+//   .content {
+//     .image {
+//       .layer {
+//         // left: -100%;
+//         width: 100%;
+//         top: 0;
+//         bottom: 0;
+//         background: rgba(255, 255, 255, 0.8);
+//         position: absolute;
+//         animation: scrollToRight 0.8s ease-in-out;
+//       }
 
-      position: relative;
+//       position: relative;
 
-      float: left;
-      width: 700px;
-      height: 450px;
-      margin-right: 100px;
-      overflow: hidden;
-      img {
-        border-radius: 6px;
-        object-fit: cover;
-      }
-    }
-  }
-  .indicator {
-    color: #aaa;
+//       float: left;
+//       width: 700px;
+//       height: 450px;
+//       margin-right: 100px;
+//       overflow: hidden;
+//       img {
+//         border-radius: 6px;
+//         object-fit: cover;
+//       }
+//     }
+//   }
+//   .indicator {
+//     color: #aaa;
 
-    &-item {
-      margin: 32px 0;
-      h3 {
-        &.active {
-          color: black;
-          font-size: 32px;
-          font-weight: 400;
-        }
-        cursor: pointer;
-      }
-    }
-  }
-}
-// 字节生活
-.byteLife {
-  // width:1200px;
-  // overflow: hidden;
-  &-title {
-    margin-bottom: 70px;
-  }
-  padding-left: 10%;
-  .block-item {
-    overflow: hidden;
-    margin-bottom: 100px;
-    &:nth-child(odd) {
-      .block-item-column {
-        &-text {
-          margin-right: 9%;
-        }
-        float: left;
-      }
-    }
-    &:nth-child(even) {
-      .block-item-column {
-        &-image {
-          margin-right: 9%;
-        }
-        float: right;
-      }
-    }
+//     &-item {
+//       margin: 32px 0;
+//       h3 {
+//         &.active {
+//           color: black;
+//           font-size: 32px;
+//           font-weight: 400;
+//         }
+//         cursor: pointer;
+//       }
+//     }
+//   }
+// }
+// // 字节生活
+// .byteLife {
+//   // width:1200px;
+//   // overflow: hidden;
+//   &-title {
+//     margin-bottom: 70px;
+//   }
+//   padding-left: 10%;
+//   .block-item {
+//     overflow: hidden;
+//     margin-bottom: 100px;
+//     &:nth-child(odd) {
+//       .block-item-column {
+//         &-text {
+//           margin-right: 9%;
+//         }
+//         float: left;
+//       }
+//     }
+//     &:nth-child(even) {
+//       .block-item-column {
+//         &-image {
+//           margin-right: 9%;
+//         }
+//         float: right;
+//       }
+//     }
 
-    &-column {
-      &-title {
-        margin-bottom: 40px;
-        padding-bottom: 40px;
-        border-bottom: 1px solid #ccc;
-      }
-      &-text {
-        width: 30%;
-      }
-      &-image {
-        height: 400px;
-        width: 59%;
-        border-radius: 8px;
-        overflow: hidden;
-        img {
-          height: 100%;
-          object-fit: cover;
-        }
-      }
-    }
-  }
-}
-// 员工故事
-.staffStory {
-  padding: 0 140px;
-  .title {
-    text-align: center;
-    margin-bottom: 10px;
-  }
+//     &-column {
+//       &-title {
+//         margin-bottom: 40px;
+//         padding-bottom: 40px;
+//         border-bottom: 1px solid #ccc;
+//       }
+//       &-text {
+//         width: 30%;
+//       }
+//       &-image {
+//         height: 400px;
+//         width: 59%;
+//         border-radius: 8px;
+//         overflow: hidden;
+//         img {
+//           height: 100%;
+//           object-fit: cover;
+//         }
+//       }
+//     }
+//   }
+// }
+// // 员工故事
+// .staffStory {
+//   padding: 0 140px;
+//   .title {
+//     text-align: center;
+//     margin-bottom: 10px;
+//   }
 
-  &-list {
-    text-align: center;
-    display: flex;
-    justify-content: space-between;
-    margin-top: 30px;
-  }
-  &-item {
-    // height: 450px;
-    overflow: hidden;
-    padding: 30px;
-    width: 30%;
-    cursor: pointer;
+//   &-list {
+//     text-align: center;
+//     display: flex;
+//     justify-content: space-between;
+//     margin-top: 30px;
+//   }
+//   &-item {
+//     // height: 450px;
+//     overflow: hidden;
+//     padding: 30px;
+//     width: 30%;
+//     cursor: pointer;
 
-    &:hover {
-      box-shadow: 0 10px 30px 0 @box-shadow-hover-color;
-      .circular-button {
-        color: @main-color;
-      }
-    }
-    .avatar {
-      width: 70%;
-      margin: auto;
-    }
-    .text {
-      .title {
-        color: @primary-text-color;
-        font-weight: @font-weight-regular;
-        font-size: @font-size-large;
-        margin: 10px 0;
-        white-space: nowrap;
-      }
-      .desc {
-        color: @primary-text-color;
-        margin: 12px 0;
-        font-size: @font-size-base;
-      }
-      .remark {
-        font-size: @font-size-base;
+//     &:hover {
+//       box-shadow: 0 10px 30px 0 @box-shadow-hover-color;
+//       .circular-button {
+//         color: @main-color;
+//       }
+//     }
+//     .avatar {
+//       width: 70%;
+//       margin: auto;
+//     }
+//     .text {
+//       .title {
+//         color: @primary-text-color;
+//         font-weight: @font-weight-regular;
+//         font-size: @font-size-large;
+//         margin: 10px 0;
+//         white-space: nowrap;
+//       }
+//       .desc {
+//         color: @primary-text-color;
+//         margin: 12px 0;
+//         font-size: @font-size-base;
+//       }
+//       .remark {
+//         font-size: @font-size-base;
 
-        color: @regular-text-color;
-        -webkit-box-orient: vertical;
-        display: -webkit-box;
-        -webkit-line-clamp: 3;
-        overflow: hidden;
-        text-overflow: ellipsis;
-      }
-    }
-    .circular-button {
-      border-radius: 50%;
-      width: 30px;
-      height: 30px;
-      border: 1px solid;
-      line-height: 30px;
+//         color: @regular-text-color;
+//         -webkit-box-orient: vertical;
+//         display: -webkit-box;
+//         -webkit-line-clamp: 3;
+//         overflow: hidden;
+//         text-overflow: ellipsis;
+//       }
+//     }
+//     .circular-button {
+//       border-radius: 50%;
+//       width: 30px;
+//       height: 30px;
+//       border: 1px solid;
+//       line-height: 30px;
 
-      margin: auto;
-      margin-top: 20px;
-      color: #ccc;
-    }
-  }
-}
+//       margin: auto;
+//       margin-top: 20px;
+//       color: #ccc;
+//     }
+//   }
+// }
 </style>

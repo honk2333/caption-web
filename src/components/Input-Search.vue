@@ -9,7 +9,7 @@
       @change="e => $emit('change', e.target.value)"
       @keypress.enter="search"
     />
-    <span @click="search" class="input-search-button">搜索</span>
+    <span @click="search" class="input-search-button">生成</span>
   </div>
 </template>
 <script>

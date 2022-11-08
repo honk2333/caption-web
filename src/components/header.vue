@@ -11,24 +11,24 @@
           <a :href="href" @click="navigate">主页</a>
         </li>
       </router-link>
-      <router-link exact to="/jobs" v-slot="{ href, navigate, isActive }">
+      <router-link exact to="/caption" v-slot="{ href, navigate, isActive }">
         <li class="navbar-item" :class="{ active: isActive }">
-          <a :href="href" @click="navigate">职位</a>
+          <a :href="href" @click="navigate">图像描述</a>
         </li>
       </router-link>
       <router-link to="/products" v-slot="{ href, navigate, isActive }">
         <li class="navbar-item" :class="{ active: isActive }">
-          <a :href="href" @click="navigate">产品与服务</a>
+          <a :href="href" @click="navigate">数据集检索</a>
         </li>
       </router-link>
       <li class="navbar-item">
-        <a href="https://job.bytedance.com/campus" target="_blank">校园招聘</a>
+        <a href="https://job.bytedance.com/campus" target="_blank">对话系统</a>
       </li>
     </ul>|
     <div class="user">
       <div class="login" v-if="!state.isLogin">
         <router-link to="/user">
-          <span class="login__text">登录</span>
+          <span class="login__text">关于</span>
         </router-link>
       </div>
 
