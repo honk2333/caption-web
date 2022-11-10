@@ -14,7 +14,7 @@
                             <p><span>Email：</span> <a href="mailto:#">chenjj@nju.edu.cn</a></p>
                         </div>
                     </div>
-                    <img style="display: inline;float: right;margin-left:auto;margin-right:auto;width:auto;height:auto;max-height:150px;max-width:150px;" src="img/QRcode.jpeg" class="img-responsive img-rounded">
+                    <!-- <img style="display: inline;float: right;margin-left:auto;margin-right:auto;width:auto;height:auto;max-height:150px;max-width:150px;" src="../img.png" class="img-responsive img-rounded"> -->
                 </div>
             </div>
             <div class="footer_bottom">

@@ -1,12 +1,12 @@
-const productList=require('../data.json').products
-const byteStandards=require('../data.json').byteStandards
+const productList = require('../data.json').products
+// const byteStandards=require('../data.json').byteStandards
 
-module.exports={
-    queryProducts(req,res){
+module.exports = {
+    queryProducts(req, res) {
         res.json(productList)
     },
-    queryByteStandards(req,res){
-         
-        res.json(byteStandards)
-    }
+    // queryByteStandards(req, res) {
+
+    //     res.json(byteStandards)
+    // }
 }

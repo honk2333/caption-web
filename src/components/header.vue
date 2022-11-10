@@ -2,7 +2,7 @@
   <div class="header" :class="[{ fixedToTop }, themeColor]">
     <div class="logo">
       <a href="/">
-        <logo :is-transparent="themeColor === 'is-transparent'"></logo>
+        <logo></logo>
       </a>
     </div>
     <ul class="navbar">
@@ -11,7 +11,7 @@
           <a :href="href" @click="navigate">主页</a>
         </li>
       </router-link>
-      <router-link exact to="/caption" v-slot="{ href, navigate, isActive }">
+      <router-link exact to="/results" v-slot="{ href, navigate, isActive }">
         <li class="navbar-item" :class="{ active: isActive }">
           <a :href="href" @click="navigate">图像描述</a>
         </li>
@@ -26,24 +26,9 @@
       </li>
     </ul>|
     <div class="user">
-      <div class="login" v-if="!state.isLogin">
         <router-link to="/user">
           <span class="login__text">关于</span>
         </router-link>
-      </div>
-
-      <div class="dropdown-menu" v-else>
-        <span class="dropdown-menu__email">
-          {{ state.userInfo.email }}
-          <i class="arrow"></i>
-        </span>
-        <ul class="dropdown-menu__wrapper">
-          <li class="dropdown-menu__item">
-            <router-link to="/resume">我的简历</router-link>
-          </li>
-          <li class="dropdown-menu__item" @click="handleLogout">退出</li>
-        </ul>
-      </div>
     </div>
     <div class="github-project">
       <a
@@ -80,29 +65,8 @@
   </div>
 </template>
 <script>
-import store from "@/store";
 export default {
   name: "Header",
-  data: () => ({
-    state: store.state
-  }),
-  created() {
-    store
-      .requestLoginStatus()
-      .then(isLogin => {
-        if (!isLogin) {
-          store.expireLogin();
-        } else if (isLogin && !this.state.userInfo.email) {
-          store
-            .requestUserInfo()
-            .then(res => {})
-            .catch(err => {});
-        }
-      })
-      .catch(err => {
-        store.expireLogin();
-      });
-  },
   props: {
     fixedToTop: {
       type: Boolean,
@@ -113,18 +77,6 @@ export default {
       default: "main-color"
     }
   },
-  methods: {
-    handleLogout() {
-      store
-        .requestLogout()
-        .then(res => {
-          this.$router.push("/");
-        })
-        .catch(err => {
-          throw err;
-        });
-    }
-  }
 };
 </script>
 <style lang="less" scoped>

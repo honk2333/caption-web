@@ -69,33 +69,5 @@
       "subDescription": "",
       "link": "https://www.feishu.com"
     }
-  ],
-  "jobCategories": [
-    {
-      "id": "6704215862603155720",
-      "en_name": "developer",
-      "zh_name": "研发",
-      "image": "/home/wanghk/front/src/img.png"
-    },
-    {
-      "id": "6704215864629004552",
-      "en_name": "productManager",
-      "zh_name": "产品",
-      "image": "/home/wanghk/front/src/img.png"
-    },
-
-    {
-      "id": "6704215882479962371",
-      "en_name": "operator",
-      "zh_name": "运营",
-      "image": "/home/wanghk/front/src/img.png"
-    },
-    {
-      "id": "6709824272514156812",
-      "en_name": "designer",
-      "zh_name": "设计",
-      "image": "/home/wanghk/front/src/img.png"
-    }
   ]
-  
 }

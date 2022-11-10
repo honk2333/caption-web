@@ -14,7 +14,7 @@
         <router-view :key="$route.path"></router-view>
       </transition>
     </main>
-    <footer v-if="$route.name !== 'products'">
+    <footer v-if="$route.name !== 'result'">
       <Footer></Footer>
     </footer>
   </div>
@@ -59,7 +59,7 @@ export default {
   },
   watch: {
     $route(newRoute) {
-      this.pageTransitionName = ["products", "home"].includes(newRoute.name)
+      this.pageTransitionName = ["result", "home"].includes(newRoute.name)
         ? ""
         : "jumpPage";
     }
@@ -112,7 +112,7 @@ export default {
   min-width: 1200px;
 }
 footer {
-  margin-top: 100px;
+  margin-top: 0;
 }
 
 header {

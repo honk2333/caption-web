@@ -1,6 +1,6 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import { state } from "@/store/";
+// import { state } from "@/store/";
 Vue.use(VueRouter);
 
 const routes = [
@@ -10,56 +10,10 @@ const routes = [
     component: () => import(/*webpackChunkName: "Home" */ "@/views/Home.vue"),
   },
   {
-    path: "/products",
-    name: "products",
+    path: "/result",
+    name: "result",
 
-    component: () =>
-      import(/* webpackChunkName: "Products" */ "../views/Products.vue"),
-  },
-  {
-    path: "/caption",
-    name: "caption",
-
-    component: () => import(/* webpackChunkName: "jobs" */ "../views/Caption.vue"),
-  },
-  {
-    path: "/jobs/:id",
-    name: "jobDetail",
-
-    component: () =>
-      import(/* webpackChunkName: "jobDetail" */ "../views/JobDetail.vue"),
-  },
-  {
-    path: "/staff-stories/:id",
-    name: "staff-story",
-
-    component: () =>
-      import(/* webpackChunkName: "staffStroy" */ "../views/StaffStory.vue"),
-  },
-  {
-    path: "/user",
-    name: "user",
-    component() {
-      return import(/* webpackChunkName: "user" */ "../views/User.vue");
-    },
-  },
-  {
-    path: "/resume",
-    name: "resume",
-    meta: {
-      loginRequired: true,
-    },
-    component: () =>
-      import(/* webpackChunkName "resume"*/ "@/views/Resume.vue"),
-  },
-  {
-    path: "/resume/edit",
-    name: "resume-editor",
-    meta: {
-      loginRequired: true,
-    },
-    component: () =>
-      import(/* webpackChunkName "resume-editor"*/ "@/views/ResumeEditor.vue"),
+    component: () => import(/* webpackChunkName: "Results" */ "@/views/Results.vue"),
   },
   {
     path: "*",
@@ -91,14 +45,14 @@ router.onError((err) => {
     router.app.$notify.error("网络资源加载错误");
   }
 });
-router.beforeEach((to, from, next) => {
-  console.log(to.path, state.isLogin);
-  if (to.path === "/user" && state.isLogin) {
-    return next("/");
-  }
-  if (to.meta.loginRequired && !state.isLogin) {
-    return next("/user");
-  }
+// router.beforeEach((to, from, next) => {
+//   console.log(to.path, state.isLogin);
+//   if (to.path === "/user" && state.isLogin) {
+//     return next("/");
+//   }
+//   if (to.meta.loginRequired && !state.isLogin) {
+//     return next("/user");
+//   }
 
-  next();
-});
+//   next();
+// });

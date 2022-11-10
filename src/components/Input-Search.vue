@@ -1,17 +1,15 @@
 <template>
   <div :class="size" class="input-search">
     <i class="prefix-icon el-icon-search"></i>
-    <input
-      v-bind="$attrs"
-      ref="input"
-      type="text"
-      :value="value"
-      @change="e => $emit('change', e.target.value)"
-      @keypress.enter="search"
-    />
+    <input v-bind="$attrs" ref="input" type="text" placeholder="输入图片链接或者上传图片以产生描述" :value="value" @change="e => $emit('change', e.target.value)"
+      @keypress.enter="search" />
+    <i class="prefix-icon-picture el-icon-picture"> </i>
+    <input type="file" name="encourage_pic" accept="image/jpg, image/jpeg, image/png" style="visibility: hidden">
+    <!-- <img src="dist/images/photo.png" title="上传图片" style="right: 20%" onclick="$('input[name=\'encourage_pic\']')[0].click(); user_level = 3; $('#encourage_words').val('从图片中读取');"> -->
     <span @click="search" class="input-search-button">生成</span>
   </div>
 </template>
+
 <script>
 export default {
   name: "input-search",
@@ -48,9 +46,11 @@ export default {
   overflow: hidden;
   border: 1px solid @main-color;
   font-size: 17px;
+
   ::-webkit-input-placeholder {
     color: @secondary-text-color;
   }
+
   &.small {
     height: 40px;
     font-size: 14px;
@@ -60,6 +60,7 @@ export default {
     height: 60px;
     font-size: 20px;
   }
+
   .prefix-icon {
     position: absolute;
     top: 0;
@@ -68,6 +69,16 @@ export default {
     display: flex;
     align-items: center;
   }
+  .prefix-icon-picture{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 120px;
+    display: flex;
+    align-items: center;
+  }
+
+
   input {
     font-size: inherit;
     height: 100%;
@@ -77,6 +88,7 @@ export default {
     padding: 10px;
     padding-left: 2em;
   }
+
   &-button {
     padding: 9px;
 
@@ -93,7 +105,9 @@ export default {
     justify-content: center;
     align-items: center;
     cursor: pointer;
+
     &:hover {
+
       // background: rgba(255, 255, 255, 0.5);
       &::before {
         transition: all 0.3s;
