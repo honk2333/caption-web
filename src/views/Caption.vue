@@ -37,7 +37,7 @@
   import { watchScrollDirection } from "@/helper/utilities.js";
   
   export default {
-    name: "home",
+    name: "caption",
     data() {
       return {
         captionLayerVisible: true,

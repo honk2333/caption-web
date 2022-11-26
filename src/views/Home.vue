@@ -18,9 +18,9 @@
          Image Caption 
         <div class="subTitle">南京大学自然语言处理实验室</div>
       </h1>
-      <div class="search">
+      <!-- <div class="search">
         <input-search @search="searchJobs"></input-search>
-      </div>
+      </div> -->
       <!-- <div class="bottom-tips">
         <span class="arrow-down" @click="scrollDown">
           <i>⤓</i>
