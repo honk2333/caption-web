@@ -14,9 +14,9 @@
         <router-view :key="$route.path"></router-view>
       </transition>
     </main>
-    <footer v-if="$route.name !== 'result'">
+    <!-- <footer v-if="$route.name !== 'result'">
       <Footer></Footer>
-    </footer>
+    </footer> -->
   </div>
 </template>
 <script>

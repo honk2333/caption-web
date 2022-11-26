@@ -15,7 +15,7 @@
         ></video>
       </div>
       <h1 class="banner-title">
-        NJU Multi-Modal Group
+         Image Caption 
         <div class="subTitle">南京大学自然语言处理实验室</div>
       </h1>
       <div class="search">
@@ -120,7 +120,7 @@ export default {
   justify-content: center;
   align-items: center;
   // background: rgba(51, 112, 255, 0.2);
-  background: rgb(30, 30, 30);
+  // background: rgb(1, 1, 1);
   // background: #222;
 
   position: relative;
@@ -140,7 +140,8 @@ export default {
     }
   }
   &-title {
-    color: #fff;
+    // color: #fff;
+    color: rgb(245, 245, 247);
     font-size: 60px;
     text-align: center;
     .subTitle {
@@ -155,7 +156,7 @@ export default {
           hsla(0, 0%, 100%, 0)
         );
         height: 2px;
-        width: 89px;
+        width:89px;
         top: 50%;
         transform: translateY(-50%);
       }

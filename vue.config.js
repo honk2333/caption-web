@@ -13,8 +13,8 @@ module.exports = {
   },
   outputDir: "server/dist",
   devServer: {
-    proxy: "http://localhost:3000",
-    // proxy: "http://njunlp.club:3000",
+    // proxy: "http://localhost:3000",
+    proxy: "http://njunlp.club:3000",
     // proxy: "http://123.57.204.48:3000",
   },
   pages: {

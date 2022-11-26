@@ -3,9 +3,8 @@
     <i class="prefix-icon el-icon-search"></i>
     <input v-bind="$attrs" ref="input" type="text" placeholder="输入图片链接或者上传图片以产生描述" :value="value" @change="e => $emit('change', e.target.value)"
       @keypress.enter="search" />
-    <i class="prefix-icon-picture el-icon-picture"> </i>
+    <i class="prefix-icon-picture el-icon-picture-outline"> </i>
     <input type="file" name="encourage_pic" accept="image/jpg, image/jpeg, image/png" style="visibility: hidden">
-    <!-- <img src="dist/images/photo.png" title="上传图片" style="right: 20%" onclick="$('input[name=\'encourage_pic\']')[0].click(); user_level = 3; $('#encourage_words').val('从图片中读取');"> -->
     <span @click="search" class="input-search-button">生成</span>
   </div>
 </template>
