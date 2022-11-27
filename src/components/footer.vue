@@ -89,3 +89,4 @@ export default {};
 // }
 </style>
 
+<!-- <p class="MuiTypography-root MuiTypography-body2 css-r1n18">Copyright © <a class="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineAlways css-19t329g" href="http://www.thunlp.org/">THUNLP</a> 2022<a class="MuiTypography-root MuiTypography-inherit MuiLink-root MuiLink-underlineHover css-vydwcq" href="https://beian.miit.gov.cn/">京ICP备2022002415号-5</a></p> -->

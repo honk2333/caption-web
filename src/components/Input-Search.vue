@@ -1,10 +1,16 @@
 <template>
   <div :class="size" class="input-search">
-    <i class="prefix-icon el-icon-search"></i>
-    <input v-bind="$attrs" ref="input" type="text" placeholder="输入图片链接或者上传图片以产生描述" :value="value" @change="e => $emit('change', e.target.value)"
-      @keypress.enter="search" />
-    <i class="prefix-icon-picture el-icon-picture-outline"> </i>
-    <input type="file" name="encourage_pic" accept="image/jpg, image/jpeg, image/png" style="visibility: hidden">
+    <div id="text_input">
+      <i class="prefix-icon el-icon-search"></i>
+      <input v-bind="$attrs" ref="text_input" type="text" placeholder="输入图片链接或者上传图片以产生描述" :value="text"
+        @change="changetext" @keypress.enter="search" />
+    </div>
+    <!-- <div id="image_input">
+      <i class="prefix-icon-picture el-icon-picture-outline"> </i>
+      <input v-bind="$attrs" type="file" ref="image_input" accept="image/jpg, image/jpeg, image/png" :value="image"
+        @change="changefile"
+      />
+    </div>   -->
     <span @click="search" class="input-search-button">生成</span>
   </div>
 </template>
@@ -16,19 +22,27 @@ export default {
     event: "change"
   },
   props: {
-    value: String,
+    text: String,
+    image: File,
     size: {
       type: String,
       default: "medium",
       validator(value) {
         return ["small", "medium", "large"].includes(value);
       }
-    }
+    },
   },
   methods: {
     search() {
-      this.$emit("search", this.$refs.input.value);
-    }
+      this.$emit("search", this.$refs.text_input.value);
+    },
+    chagetext(){
+      e => $emit('change', e.target.value);
+    },
+    // changefile(){
+    //   var files = event.target.files[0]        //获取文件 
+    //   this.$emit("search", this.$refs.image_input.value);
+    // }
   }
 };
 </script>
@@ -68,7 +82,8 @@ export default {
     display: flex;
     align-items: center;
   }
-  .prefix-icon-picture{
+
+  .prefix-icon-picture {
     position: absolute;
     top: 0;
     bottom: 0;

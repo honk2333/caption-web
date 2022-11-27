@@ -1,7 +1,10 @@
 import axios from "axios";
 
-const instance = axios.create({ baseURL: "/api" });
+// 创建axios请求实例
+const instance = axios.create({ baseURL: "http://njunlp.club:1024/api" });
 
+
+// 响应拦截器
 instance.interceptors.response.use(
   response => {
     const { status, data } = response;

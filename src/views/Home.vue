@@ -15,8 +15,8 @@
         ></video>
       </div>
       <h1 class="banner-title">
-         Image Caption 
-        <div class="subTitle">南京大学自然语言处理实验室</div>
+          南京大学自然语言处理实验室
+        <div class="subTitle">多模态研究组</div>
       </h1>
       <!-- <div class="search">
         <input-search @search="searchJobs"></input-search>
@@ -40,24 +40,24 @@ export default {
   name: "home",
   data() {
     return {
-      captionLayerVisible: true,
-      search: "",
-      captions: [],
+      // captionLayerVisible: true,
+      // search: "",
+      // captions: [],
     };
   },
   methods: {
-    onScrollRightAnimationEnd() {
-      this.captionLayerVisible = false;
-    },
-    scrollDown() {
-      this.$refs.captions.scrollIntoView({
-        behavior: "smooth",
-        block: "start"
-      });
-    },
-    searchJobs(keyword) {
-      this.$router.push({ name: "result", params: { keyword } });
-    },
+    // onScrollRightAnimationEnd() {
+    //   this.captionLayerVisible = false;
+    // },
+    // scrollDown() {
+    //   this.$refs.captions.scrollIntoView({
+    //     behavior: "smooth",
+    //     block: "start"
+    //   });
+    // },
+    // searchJobs(keyword) {
+    //   this.$router.push({ name: "result", params: { keyword } });
+    // },
    
   },
   mounted() {
@@ -156,7 +156,7 @@ export default {
           hsla(0, 0%, 100%, 0)
         );
         height: 2px;
-        width:89px;
+        width:109px;
         top: 50%;
         transform: translateY(-50%);
       }

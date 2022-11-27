@@ -9,17 +9,17 @@ const routes = [
     name: "home",
     component: () => import(/*webpackChunkName: "Home" */ "@/views/Home.vue"),
   },
-  {
-    path: "/result",
-    name: "result",
+  // {
+  //   path: "/result",
+  //   name: "result",
 
-    component: () => import(/* webpackChunkName: "Results" */ "@/views/Results.vue"),
-  },
+  //   component: () => import(/* webpackChunkName: "Results" */ "@/views/Results.vue"),
+  // },
   {
-    path: "/caption",
-    name: "caption",
+    path: "/captions",
+    name: "captions",
 
-    component: () => import(/* webpackChunkName: "Caption" */ "@/views/Caption.vue"),
+    component: () => import(/* webpackChunkName: "Caption" */ "@/views/Captions.vue"),
   },
   {
     path: "*",
