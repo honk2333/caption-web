@@ -4,7 +4,9 @@ export const captionByURL = (params) => {
     return request({
         url: '/caption/captionByURL',
         method: 'get',
-        params: params
+        params: {
+            'url':params
+        }
     })
   
 }
@@ -13,6 +15,10 @@ export const captionByFile = (params) => {
     return request({
         url: '/caption/captionByFile',
         method: 'post',
-        params: params
+        data: params,
+        headers: {
+            'Content-Type': 'multipart/form-data',
+            // 'Authorization': localStorage.getItem("authorization")
+        },
     })
 }

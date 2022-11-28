@@ -1,17 +1,22 @@
 <template>
   <div :class="size" class="input-search">
-    <div id="text_input">
-      <i class="prefix-icon el-icon-search"></i>
-      <input v-bind="$attrs" ref="text_input" type="text" placeholder="输入图片链接或者上传图片以产生描述" :value="text"
-        @change="changetext" @keypress.enter="search" />
-    </div>
-    <!-- <div id="image_input">
-      <i class="prefix-icon-picture el-icon-picture-outline"> </i>
-      <input v-bind="$attrs" type="file" ref="image_input" accept="image/jpg, image/jpeg, image/png" :value="image"
-        @change="changefile"
-      />
-    </div>   -->
-    <span @click="search" class="input-search-button">生成</span>
+    <form id="inputform" action="search" enctype="multipart/form-data">
+      <div id="text_input">
+        <i class="prefix-icon el-icon-search"></i>
+        <input ref="text_input" :value="text" placeholder="输入图片链接或者上传图片以产生描述" type="text"
+               @keypress.enter="search"/>
+      </div>
+      <div id="image_input">
+        <label for="imageinput">
+          <i aria-hidden="true" class="prefix-icon-picture el-icon-picture-outline"> </i>
+        </label>
+        <input v-show="false" id="imageinput" ref="image_input" :value="image" accept="image/jpg, image/jpeg, image/png"
+               type="file" @change="changefile"
+        />
+      </div>
+      <span class="input-search-button" @click="search">生成</span>>
+<!--            <span class="input-search-button" type=script"submit">生成</span>-->
+    </form>
   </div>
 </template>
 
@@ -36,13 +41,15 @@ export default {
     search() {
       this.$emit("search", this.$refs.text_input.value);
     },
-    chagetext(){
-      e => $emit('change', e.target.value);
-    },
-    // changefile(){
-    //   var files = event.target.files[0]        //获取文件 
-    //   this.$emit("search", this.$refs.image_input.value);
-    // }
+    // changetext(event) {
+    //   // var value = event.target.value
+    //   this.$emit('change', event.target.value);
+    // },
+    changefile(event){
+      var files = event.target.files[0]        //获取文件
+      console.log(files)
+      this.$emit("search", files);
+    }
   }
 };
 </script>
@@ -93,7 +100,7 @@ export default {
   }
 
 
-  input {
+  text_input {
     font-size: inherit;
     height: 100%;
     width: 100%;
