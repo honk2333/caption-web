@@ -1,17 +1,19 @@
 <template>
   <div id="app">
     <header>
+      <meta content="width=device-width,user-scalable=no,initial-scale=1.0,  maximum-scale=1.0,minimum-scale=1.0"
+            name="viewport">
       <Header
-        @animationstart.native="onAnimationStart"
-        :class="{ [animationName]: $route.name === 'home' }"
-        :fixedToTop="$route.path === '/'"
-        ref="header"
-        :theme-color="themeColor"
+          ref="header"
+          :class="{ [animationName]: $route.name === 'home' }"
+          :fixedToTop="$route.path === '/home'"
+          :theme-color="themeColor"
+          @animationstart.native="onAnimationStart"
       ></Header>
     </header>
     <main>
-      <transition appear :name="pageTransitionName">
-        <router-view :key="$route.path"></router-view>
+      <transition :name="pageTransitionName" appear>
+        <router-view :key="$route.path" ref="main_body"></router-view>
       </transition>
     </main>
     <!-- <footer v-if="$route.name !== 'result'">
@@ -20,6 +22,11 @@
   </div>
 </template>
 <script>
+const themecolor = {
+  '/home': "is-transparent",
+  '/captions': 'captions-color',
+  '/sensitive': 'sensitive-color'
+};
 export default {
   name: "App",
   data() {
@@ -31,12 +38,18 @@ export default {
   },
 
   computed: {
+    // themeColor() {
+    //   return this.$route.path !== "/"
+    //     ? "main-color"
+    //     : this.homeScrollY < Math.max(400, window.innerHeight)
+    //     ? "is-transparent"
+    //     : "main-color";
+    // }
     themeColor() {
-      return this.$route.path !== "/"
-        ? "main-color"
-        : this.homeScrollY < Math.max(400, window.innerHeight)
-        ? "is-transparent"
-        : "main-color";
+      // console.log(themecolor);
+      // console.log(this.$route.path);
+      // console.log(themecolor[this.$route.path])
+      return themecolor[this.$route.path];
     }
   },
   created() {
@@ -51,7 +64,7 @@ export default {
     });
   },
   mounted() {
-    this.$refs.header.$el.addEventListener("animationend", function(e) {
+    this.$refs.header.$el.addEventListener("animationend", function (e) {
       if (e.animationName === "slideOutUp") {
         e.target.style.top = "-100%";
       }
@@ -60,8 +73,8 @@ export default {
   watch: {
     $route(newRoute) {
       this.pageTransitionName = ["result", "home"].includes(newRoute.name)
-        ? ""
-        : "jumpPage";
+          ? ""
+          : "jumpPage";
     }
   },
   methods: {
@@ -70,8 +83,9 @@ export default {
         e.target.style.top = 0;
       }
     }
-  }
+  },
 };
+
 </script>
 <style lang="less">
 @keyframes slideInDown {
@@ -82,6 +96,7 @@ export default {
     transform: translateY(0);
   }
 }
+
 @keyframes slideOutUp {
   from {
     transform: translateY(0);
@@ -90,9 +105,11 @@ export default {
     transform: translateY(-100%);
   }
 }
+
 .slideInDown {
   animation: slideInDown 0.4s;
 }
+
 .slideOutUp {
   animation: slideOutUp 0.4s;
 }
@@ -100,6 +117,7 @@ export default {
 .jumpPage-leave-active {
   display: none;
 }
+
 .jumpPage-enter {
   transform: translate3d(0, 80px, 0);
   opacity: 0;
@@ -108,11 +126,19 @@ export default {
 .jumpPage-enter-active {
   transition: all 0.3s;
 }
+
 #app {
   min-width: 1200px;
+  //height: 100vh;
+  //box-sizing: border-box;
 }
+
 footer {
   margin-top: 0;
+}
+
+main {
+  //height: auto;
 }
 
 header {

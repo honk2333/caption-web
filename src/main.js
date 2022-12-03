@@ -40,6 +40,10 @@ Vue.use(Loading);
 Vue.use(PopupProgress);
 Vue.use(Message);
 
+// hightlight组件
+import VueHighlightJS from 'vue-highlightjs'
+Vue.use(VueHighlightJS)
+
 // 注册日期格式化过滤器
 
 Vue.filter("formatDate", formatDate);

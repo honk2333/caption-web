@@ -6,20 +6,24 @@ Vue.use(VueRouter);
 const routes = [
   {
     path: "/",
-    name: "home",
-    component: () => import(/*webpackChunkName: "Home" */ "@/views/Home.vue"),
+    // name: "index",
+    redirect: '/captions',
+    // component: () => import(/*webpackChunkName: "Home" */ "@/views/Captions.vue"),
   },
-  // {
-  //   path: "/result",
-  //   name: "result",
-
-  //   component: () => import(/* webpackChunkName: "Results" */ "@/views/Results.vue"),
-  // },
+  {
+    path: "/home",
+    name: "home",
+    component: () => import(/* webpackChunkName: "Results" */ "@/views/Home.vue"),
+  },
   {
     path: "/captions",
     name: "captions",
-
     component: () => import(/* webpackChunkName: "Caption" */ "@/views/Captions.vue"),
+  },
+  {
+    path: "/sensitive",
+    name: "sensitive",
+    component: () => import(/* webpackChunkName: "Caption" */ "@/views/Sensitive.vue"),
   },
   {
     path: "*",

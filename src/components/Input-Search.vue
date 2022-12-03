@@ -1,21 +1,19 @@
 <template>
   <div :class="size" class="input-search">
-    <form id="inputform" action="search" enctype="multipart/form-data">
-      <div id="text_input">
+    <form id="inputform">
+      <div>
         <i class="prefix-icon el-icon-search"></i>
-        <input ref="text_input" :value="text" placeholder="输入图片链接或者上传图片以产生描述" type="text"
-               @keypress.enter="search"/>
+        <input ref="text_input" :value="text" placeholder="输入图片链接或者上传图片以产生描述" type="text" @keypress.enter="search"/>
       </div>
-      <div id="image_input">
-        <label for="imageinput">
+      <div>
+        <label for="image_input">
           <i aria-hidden="true" class="prefix-icon-picture el-icon-picture-outline"> </i>
         </label>
-        <input v-show="false" id="imageinput" ref="image_input" :value="image" accept="image/jpg, image/jpeg, image/png"
-               type="file" @change="changefile"
-        />
+        <input v-show="false" id="image_input" :value="image" accept="image/jpg, image/jpeg, image/png"
+         type="file" @change="changefile"  />
       </div>
-      <span class="input-search-button" @click="search">生成</span>>
-<!--            <span class="input-search-button" type=script"submit">生成</span>-->
+      <span class="input-search-button" @click="search"> 生成 </span>>
+      <!--            <span class="input-search-button" type=script"submit">生成</span>-->
     </form>
   </div>
 </template>
@@ -45,7 +43,7 @@ export default {
     //   // var value = event.target.value
     //   this.$emit('change', event.target.value);
     // },
-    changefile(event){
+    changefile(event) {
       var files = event.target.files[0]        //获取文件
       console.log(files)
       this.$emit("search", files);
@@ -58,14 +56,17 @@ export default {
   margin-left: auto;
   margin-right: auto;
   height: 50px;
-  width: 100%;
-  min-width: 400px;
+  //width: 100%;
+  //min-width: 400px;
   max-width: @main-width;
   position: relative;
-  border-radius: 30px;
+  //border-radius: 30px;
+  //white-space: nowrap;
+  //text-overflow: ellipsis;
   overflow: hidden;
-  border: 1px solid @main-color;
+  //border: 1.5px solid @main-color;
   font-size: 17px;
+  font-family: STZhongsong,serif;
 
   ::-webkit-input-placeholder {
     color: @secondary-text-color;
@@ -100,14 +101,17 @@ export default {
   }
 
 
-  text_input {
+  input {
     font-size: inherit;
     height: 100%;
     width: 100%;
+    //top: 0;
+    //bottom: 0;
     line-height: 100%;
     border: none;
-    padding: 10px;
+    padding: 15px;
     padding-left: 2em;
+    //text-align: center;
   }
 
   &-button {
@@ -120,6 +124,7 @@ export default {
 
     top: 0;
     width: 100px;
+    min-width: 30px;
     height: 100%;
     background: @main-color;
     display: flex;
@@ -128,7 +133,6 @@ export default {
     cursor: pointer;
 
     &:hover {
-
       // background: rgba(255, 255, 255, 0.5);
       &::before {
         transition: all 0.3s;
