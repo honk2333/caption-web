@@ -138,7 +138,8 @@ footer {
 }
 
 main {
-  //height: auto;
+  //height: 100vh;
+  //position: relative;
 }
 
 header {

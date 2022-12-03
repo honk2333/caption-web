@@ -5,7 +5,7 @@
         <logo></logo>
       </a>
     </div>
-    <ul class="navbar">
+    <ul class="navbar" >
       <router-link v-slot="{ href, navigate, isActive }" exact to="/home">
         <li :class="{ active: isActive }" class="navbar-item">
           <a :href="href" @click="navigate">主页</a>
@@ -123,7 +123,7 @@ export default {
   height: 60px;
   align-items: center;
   padding: 10px;
-  min-width: 100px;
+  //min-width: 100px;
   //max-height: 100px;
   font-family: STZhongsong, serif;
   position: fixed;
@@ -192,32 +192,39 @@ export default {
     }
   }
 }
+  .navbar {
+    margin-left: auto;
+    margin-right: 20px;
+    //hight: 80px;
+    display: flex;
+    //float: right;
+    //width: 100%;
+    //position: relative;
 
-.logo {
-  width: 200px;
-  height: 70px;
-  // a {
-  //   height: 80%;
-  //   display: block;
-  // }
-}
 
-.navbar {
-  margin-left: auto;
-  margin-right: 20px;
-
-  display: flex;
-
-  &-item {
-    padding: 4px 0px;
-    margin: 0 20px;
-
-    &.active {
-      border-bottom: 2px solid;
-      color: @main-color;
+    &-item {
+      padding: 4px 0px;
+      margin: 0 20px;
+      //height: ;
+      //width: ;
+      &.active {
+        border-bottom: 2px solid;
+        color: @main-color;
+      }
     }
   }
-}
+  .logo {
+    width: 200px;
+    height: 70px;
+    // a {
+    //   height: 80%;
+    //   display: block;
+    // }
+  }
+
+
+
+
 
 // .user {
 //   margin-left: 40px;
@@ -271,9 +278,9 @@ export default {
 //     }
 //   }
 // }
-.github-project {
-  position: absolute;
-  right: 0;
-  top: 0;
-}
+//.github-project {
+//  position: absolute;
+//  right: 0;
+//  top: 0;
+//}
 </style>

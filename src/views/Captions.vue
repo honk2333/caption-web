@@ -13,8 +13,10 @@
         </span>
         <span class="vertical-dashed"></span>
       </div> -->
-      <div v-if="results.caption" class="results">
-        <img :src="results.url" height="300" style="float: left"/>
+      <div v-if="results.caption" class="result">
+        <div align="center">
+          <img :src="results.url" class="result-img" width="300" />
+        </div>
         <div class="results-caption">
           <nobr>
             <b> 多语言 </b>
@@ -173,25 +175,31 @@ export default {
 //}
 
 .banner {
-  height: 100vh;
+  //height: auto;
   width: 100%;
-
+  min-height: 100%;
   //min-height: 400px;
   //min-width: @main-width;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  //text-align: center;
+  //justify-content: center;
   align-items: center;
   // background: rgba(51, 112, 255, 0.2);
   background: rgb(234, 239, 241);
   // background: #222;
   //padding-top: 120px;
+  //box-sizing: border-box;
   position: absolute;
-  box-sizing: border-box;
-
 
   &-title {
     color: #000000b0;
+
+    margin-top: 15%;
+    //min-margin-top: 100px ;
+    //position: absolute;
+
+    //height: 10%;
     //   color: rgb(245, 245, 247);
     font-size: 45px;
     font-family: STZhongsong, serif;
@@ -200,7 +208,8 @@ export default {
   }
 
   .search {
-    width: 60%;
+    width: 80%;
+    max-width: 800px;
     min-width: 100px;
     margin-top: 100px;
     margin-bottom: 40px;
@@ -211,17 +220,31 @@ export default {
 
   }
 
-  .results-caption {
-    width: 90vh;
-    font-size: 25px;
-    font-family: STZhongsong, serif;
-    font-weight: normal;
-    float: left;
+  .result{
+    width: 80%;
+    max-width: 800px;
+    .results-caption {
+      margin-top: 20px;
+      //width: 90vh;
+      //width: 100%;
+      font-size: 25px;
+      font-family: STZhongsong, serif;
+      font-weight: normal;
+
+      //float: left;
+    }
+
+
+    //.result-img {
+    //  //display: flex;
+    //  //align-items: center;
+    //  //float: left;
+    //  text-align:center;
+    //  //margin-right: 5%;
+    //  //margin: auto;
+    //}
   }
 
-  img {
-    margin-right: 10vh;
-  }
 
   //.bottom-tips {
   //  position: absolute;
@@ -261,6 +284,8 @@ export default {
   //  }
   //}
 }
+
+
 
 </style>
   
