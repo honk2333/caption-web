@@ -55,14 +55,3 @@ router.onError((err) => {
     router.app.$notify.error("网络资源加载错误");
   }
 });
-// router.beforeEach((to, from, next) => {
-//   console.log(to.path, state.isLogin);
-//   if (to.path === "/user" && state.isLogin) {
-//     return next("/");
-//   }
-//   if (to.meta.loginRequired && !state.isLogin) {
-//     return next("/user");
-//   }
-
-//   next();
-// });

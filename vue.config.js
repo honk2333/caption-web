@@ -13,9 +13,26 @@ module.exports = {
   },
   outputDir: "server/dist",
   devServer: {
-    // proxy: "http://localhost:3000",
-    proxy: "http://njunlp.club:3000",
-    // proxy: "http://123.57.204.48:3000",
+    proxy: {
+      // 第一台服务器配置
+      '/caption': {
+        target: 'http://njunlp.club:1024',
+        ws: true,
+        changeOrigin: true,
+        pathRewrite: {
+          '^/caption': '/caption'
+        }
+      },
+      // 第二台服务器配置
+      '/tr_run': {
+        target: 'http://192.168.31.91:8089',
+        ws: true,
+        changeOrigin: true,
+        pathRewrite: {
+          '^/tr_run': '/tr_run'
+        }
+      }
+    }
   },
   pages: {
     index: {

@@ -37,11 +37,11 @@
                 压缩图片:
                 <a-switch
                     checked-children="开"
-                    default-checked
-                    style="width:auto;min-width:45%;"
-                    un-checked-children="关"
-                    @change="changeCompressBtn"
+                style="width:auto;min-width:45%;"
+                un-checked-children="关"
+                @change="changeCompressBtn"
                 />
+                <!--                    default-checked="false"-->
               </p>
               <p :hidden="hiddenCompressBox">
                 压缩尺寸:
@@ -91,22 +91,11 @@
 <script>
 import Vue from 'vue'
 import CodeHighlight from '../components/CodeHighlight.vue'
-import Message from 'ant-design-vue'
-import {
-  Button,
-  Layout,
-  Input,
-  Row,
-  Col,
-  Icon,
-  Divider,
-  Upload,
-
-} from 'ant-design-vue'
+import Message, {Button, Col, Divider, Icon, Input, Layout, Row, Upload} from 'ant-design-vue'
 import 'ant-design-vue/dist/antd.css';
+import {TrSensitive} from '@/helper/api.js'
 
-
-const axios = require('axios')
+// const axios = require('axios')
 Vue.use(Message)
 
 Vue.use(Button)
@@ -135,8 +124,7 @@ function getObjectURL(file) {
 
 export default {
   name: 'Index',
-  props:{
-  },
+  props: {},
   data() {
     return {
       upImage: '', // 上传后的图片预览地址
@@ -155,7 +143,7 @@ export default {
       hiddenFilterResult: true,
       comporessSize: 1600,
       hiddenCompressBox: false,
-      themecolor: "rgb(255, 255, 255)",
+      // themecolor: "rgb(255, 255, 255)",
     }
   },
   components: {
@@ -163,7 +151,6 @@ export default {
   },
   methods: {
     changeCompressBtn(checked) {
-
       if (checked === true) {
         this.$data.hiddenCompressBox = false
       } else {
@@ -210,61 +197,50 @@ export default {
       this.uploading = true
 
       const _this = this
-      axios({
-        // url: '/api/tr-run/',
-        url: '/api/tr-run/',
-        method: 'post',
-        headers: {
-          'Content-Type': 'multipart/form-data',
-          'X-Requested-With': 'XMLHttpRequest'
-        },
-        transformRequest: {},
-        data: formData
-      })
-          .then(function (response) {
-            _this.$data.detectedImg = response.data['data']['img_detected']
+      TrSensitive(formData).then(response => {
+        _this.$data.detectedImg = response['data']['img_detected']
 
-            _this.$data.ocrRaw = ''
-            _this.$data.ocrText = ''
-            _this.$data.filterResult = ''
+        _this.$data.ocrRaw = ''
+        _this.$data.ocrText = ''
+        _this.$data.filterResult = ''
 
-            let nextLineHeight = 0 // 下一行的高度
+        let nextLineHeight = 0 // 下一行的高度
 
-            const raw_data = response.data['data']['raw_out']
-            for (let i = 0; i < raw_data.length; i++) {
-              _this.$data.ocrRaw += JSON.stringify(raw_data[i]) + '\r'
+        const raw_data = response['data']['raw_out']
+        for (let i = 0; i < raw_data.length; i++) {
+          _this.$data.ocrRaw += JSON.stringify(raw_data[i]) + '\r'
 
-              // 合并同一行的数据
-              if (i < raw_data.length - 1) {
-                nextLineHeight = raw_data[i + 1][0][1]
-                // 判断判断同一行的依据是 两段的行高差 小于 行高的一半
-                if (
-                    Math.abs(raw_data[i][0][1] - nextLineHeight) <
-                    raw_data[i][0][3] / 2
-                ) {
-                  _this.$data.ocrText += raw_data[i][1] + ' '
-                } else {
-                  _this.$data.ocrText += raw_data[i][1] + '\r'
-                }
-              } else {
-                _this.$data.ocrText += raw_data[i][1]
-              }
-
-              // _this.$data.ocrText += raw_data[i][1] + '\r'
+          // 合并同一行的数据
+          if (i < raw_data.length - 1) {
+            nextLineHeight = raw_data[i + 1][0][1]
+            // 判断判断同一行的依据是 两段的行高差 小于 行高的一半
+            if (
+                Math.abs(raw_data[i][0][1] - nextLineHeight) <
+                raw_data[i][0][3] / 2
+            ) {
+              _this.$data.ocrText += raw_data[i][1] + ' '
+            } else {
+              _this.$data.ocrText += raw_data[i][1] + '\r'
             }
-            _this.$data.filterResult = response.data['data']['filter_result']
+          } else {
+            _this.$data.ocrText += raw_data[i][1]
+          }
 
-            _this.$data.uploading = false
-            _this.$data.isOCRing = false
-            _this.$data.hiddenDetectedImg = false
-            _this.$data.hiddenOcrRaw = false
-            _this.$data.hiddenOcrText = false
-            _this.$data.hiddenFilterResult = false
+          // _this.$data.ocrText += raw_data[i][1] + '\r'
+        }
+        _this.$data.filterResult = response['data']['filter_result']
 
-            _this.$message.success(
-                '成功! 耗时：' + response.data['data']['speed_time'] + ' 秒'
-            )
-          })
+        _this.$data.uploading = false
+        _this.$data.isOCRing = false
+        _this.$data.hiddenDetectedImg = false
+        _this.$data.hiddenOcrRaw = false
+        _this.$data.hiddenOcrText = false
+        _this.$data.hiddenFilterResult = false
+
+        _this.$message.success(
+            '成功! 耗时：' + response['data']['speed_time'] + ' 秒'
+        )
+      })
           .catch(function (error) {
             // console.log(error)
             _this.$data.isOCRing = false
@@ -334,10 +310,10 @@ export default {
 
 /* <<<<<<  覆盖原生样式 */
 .wrapper {
-  main-color: ;
-  /*position: absolute;*/
-  position: relative;
-  top: 0;
+  /*main-color: ;*/
+  position: absolute;
+  /*position: relative;*/
+  top: 50px;
   left: 0;
   width: 100%;
   min-height: 100%;

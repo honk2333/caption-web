@@ -3,16 +3,18 @@
     <form id="inputform">
       <div>
         <i class="prefix-icon el-icon-search"></i>
-        <input ref="text_input" :value="text" placeholder="输入图片链接或者上传图片以产生描述" type="text" @keypress.enter="search"/>
+        <input ref="text_input" :value="text" placeholder="输入图片链接或者上传图片以产生描述" type="text"
+               @keypress.enter="search"/>
       </div>
       <div>
         <label for="image_input">
           <i aria-hidden="true" class="prefix-icon-picture el-icon-picture-outline"> </i>
         </label>
         <input v-show="false" id="image_input" :value="image" accept="image/jpg, image/jpeg, image/png"
-         type="file" @change="changefile"  />
+               type="file" @change="changefile"/>
       </div>
-      <span class="input-search-button" @click="search"> 生成 </span>>
+      <!--      <span class="input-search-button" @click="search"> 生成 </span>-->
+      <el-button :loading="ConfirmLoading" class="input-search-button" type="primary" @click="search">生 成</el-button>
       <!--            <span class="input-search-button" type=script"submit">生成</span>-->
     </form>
   </div>
@@ -24,6 +26,11 @@ export default {
   model: {
     event: "change"
   },
+  // data() {
+  //   return {
+  //     ConfirmLoading: false
+  //   }
+  // },
   props: {
     text: String,
     image: File,
@@ -34,6 +41,7 @@ export default {
         return ["small", "medium", "large"].includes(value);
       }
     },
+    ConfirmLoading: Boolean,
   },
   methods: {
     search() {
@@ -66,7 +74,7 @@ export default {
   overflow: hidden;
   //border: 1.5px solid @main-color;
   font-size: 17px;
-  font-family: STZhongsong,serif;
+  font-family: STZhongsong, serif;
 
   ::-webkit-input-placeholder {
     color: @secondary-text-color;

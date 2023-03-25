@@ -35,8 +35,7 @@ if (process.env.NODE_ENV !== "production") {
 }
 
 // 使用loading 组件
-
-Vue.use(Loading);
+// Vue.use(Loading);
 Vue.use(PopupProgress);
 Vue.use(Message);
 

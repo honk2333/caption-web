@@ -5,7 +5,7 @@
         📷 看图说话
       </h1>
       <div class="search">
-        <input-search @search="generateCaption"></input-search>
+        <input-search :ConfirmLoading:="ConfirmLoading" @search="generateCaption"></input-search>
       </div>
       <!-- <div class="bottom-tips">
         <span class="arrow-down" @click="scrollDown">
@@ -13,22 +13,20 @@
         </span>
         <span class="vertical-dashed"></span>
       </div> -->
-      <div v-if="results.caption" class="result">
+      <div v-if="results.url" class="result">
         <div align="center">
-          <img :src="results.url" class="result-img" width="300" />
+          <img :src="results.url" class="result-img" width="300"/>
         </div>
         <div class="results-caption">
           <nobr>
-            <b> 多语言 </b>
-            <li @click="play(results.caption)" style="float:right;cursor:pointer;" > 朗读 🔊</li>
+            <!--            <b> 描述结果 </b>-->
+            <li style="float:right;cursor:pointer;" @click="play(results.oppo)"> 朗读 🔊</li>
           </nobr>
-          <p> 英文: {{ results.caption }} </p>
-          <p> 中文： </p>
+          <b> 多模态标签融合图像描述模型: &emsp; </b>
+          <p>{{ results.oppo }} </p>
           <hr>
-          <b> 多风格 </b>
-          <p> 积极: </p>
-          <p> 中立: </p>
-          <p> 消极: </p>
+          <b> 基线模型: &emsp; </b>
+          <p>{{ results.baseline }} </p>
         </div>
       </div>
 
@@ -43,7 +41,7 @@
 <script>
 // @ is an alias to /src
 import {watchScrollDirection} from "@/helper/utilities.js";
-import {captionByFile, captionByURL} from "@/helper/api.js"
+import {captionByURL, captionOfOPPO} from "@/helper/api.js"
 import Speech from 'speak-tts'
 
 export default {
@@ -51,36 +49,38 @@ export default {
   props: {},
   data() {
     return {
-      captionLayerVisible: true,
       search: "",
       results: {},
-      showresults: false,
-      // themecolor: "rgb(234, 239, 241)",
       speech: null,
+      ConfirmLoading: true,
     };
   },
   methods: {
     generateCaption(param) {
+      this.ConfirmLoading = true;
       // this.$router.push({ name: "result", params: { keyword } });
       if (param instanceof File) {
         const formData = new FormData();
         formData.append('file', param);
-        captionByFile(formData).then(data => {
+        // captionByFile(formData).then(data => {
+        //   this.results = data;
+        //   this.results.url = 'http://njunlp.club:1024' + data.url;
+        //   // console.log(this.results.url);
+        // }).catch();
+        captionOfOPPO(formData).then(data => {
           this.results = data;
           this.results.url = 'http://njunlp.club:1024' + data.url;
-          // console.log(this.results.url);
-        })
-            .catch();
+          this.ConfirmLoading = false;
+        }).catch();
       } else {
         captionByURL(param).then(data => {
           console.log(data);
           this.results = data;
           this.results.url = 'http://njunlp.club:1024' + data.url;
-          // console.log(this.results.url);surface pc
-          // this.loading = false;
-          // loading.close();
+          this.ConfirmLoading = false;
         }).catch();
       }
+      this.ConfirmLoading = true
     },
     SpeechInit() {
       this.speech = new Speech()
@@ -161,18 +161,7 @@ export default {
   }
 }
 
-//.captions {
-//  .main {
-//    width: @main-width;
-//    margin: auto;
-//  }
-//
-//  .conteheadernt-item-block {
-//    .title {
-//      font-size: @font-size-larger;
-//    }
-//  }
-//}
+
 
 .banner {
   //height: auto;
@@ -217,12 +206,12 @@ export default {
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
-
   }
 
-  .result{
+  .result {
     width: 80%;
     max-width: 800px;
+
     .results-caption {
       margin-top: 20px;
       //width: 90vh;
@@ -284,7 +273,6 @@ export default {
   //  }
   //}
 }
-
 
 
 </style>

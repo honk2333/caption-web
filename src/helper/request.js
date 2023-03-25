@@ -1,7 +1,8 @@
 import axios from "axios";
 
 // 创建axios请求实例
-const instance = axios.create({ baseURL: "http://njunlp.club:1024/api" });
+// const instance = axios.create({ baseURL: "http://njunlp.club:1024/api" });
+const instance = axios.create({ baseURL: "/api" });
 // axios.defaults.withCredentials=true
 axios.defaults.crossDomain=true
 // axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'

@@ -1,6 +1,6 @@
 <template>
   <div class="logo">
-    <svg xmlns="http://www.w3.org/2000/svg">
+    <svg xmlns="http://www.w3.org/2000/svg" style="height:70px">
       <g transform="translate(0 -25) scale(0.2,0.2)" fill="none" fill-rule="evenodd">
         <g>
           <path  fill="#3960AC" d="M205.658,164.412c0.686-0.153,0.759,0.305,0.807,0.798

@@ -21,11 +21,11 @@
           <a :href="href" @click="navigate">数据集</a>
         </li>
       </router-link>
-      <!--      <router-link to="/sensitive" v-slot="{ href, navigate, isActive }">-->
-      <!--        <li class="navbar-item" :class="{ active: isActive }">-->
-      <!--          <a :href="href" @click="navigate">图片敏感文本检测</a>-->
-      <!--        </li>-->
-      <!--      </router-link>-->
+      <router-link to="/sensitive" v-slot="{ href, navigate, isActive }">
+        <li class="navbar-item" :class="{ active: isActive }">
+          <a :href="href" @click="navigate">图片敏感文本检测</a>
+        </li>
+      </router-link>
       <li class="navbar-item">
         <a href="" target="_blank">Litermate</a>
       </li>
@@ -213,14 +213,14 @@ export default {
       }
     }
   }
-  .logo {
-    width: 200px;
-    height: 70px;
+  //.logo {
+    //width: 200px;
+    //height: 70px;
     // a {
     //   height: 80%;
     //   display: block;
     // }
-  }
+  //}
 
 
 
