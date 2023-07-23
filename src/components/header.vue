@@ -11,7 +11,7 @@
           <a :href="href" @click="navigate">主页</a>
         </li>
       </router-link>
-      <router-link v-slot="{ href, navigate, isActive }" exact to="/captions">
+      <router-link v-slot="{ href, navigate, isActive }" exact to="/imagecaption">
         <li :class="{ active: isActive }" class="navbar-item">
           <a :href="href" @click="navigate">图像描述</a>
         </li>
@@ -163,6 +163,20 @@ export default {
   }
 
   &.sensitive-color {
+    background-color: white;
+
+    .navbar-item {
+      &:hover {
+        color: @main-color;
+      }
+    }
+
+    .active {
+      color: @main-color;
+    }
+  }
+
+  &.datasets-color {
     background-color: white;
 
     .navbar-item {

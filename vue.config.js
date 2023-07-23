@@ -1,35 +1,45 @@
 const path = require("path");
 module.exports = {
-  publicPath:'./',
+  publicPath: "./",
   lintOnSave: "warning",
   pluginOptions: {
     "style-resources-loader": {
       preProcessor: "less",
       patterns: [
         path.resolve(__dirname, "src/assets/style/variable.less"),
-        path.resolve(__dirname, "src/assets/style/mixin.less"),
-      ],
-    },
+        path.resolve(__dirname, "src/assets/style/mixin.less")
+      ]
+    }
   },
   outputDir: "server/dist",
   devServer: {
+    inline: true,
     proxy: {
       // 第一台服务器配置
-      '/caption': {
-        target: 'http://njunlp.club:1024',
+      "/caption": {
+        target: "http://njunlp.club:80",
         ws: true,
         changeOrigin: true,
         pathRewrite: {
-          '^/caption': '/caption'
+          "^/caption": "/caption"
         }
       },
       // 第二台服务器配置
-      '/tr_run': {
-        target: 'http://192.168.31.91:8089',
+      "/tr_run": {
+        target: "http://192.168.31.91:8089",
         ws: true,
         changeOrigin: true,
         pathRewrite: {
-          '^/tr_run': '/tr_run'
+          "^/tr_run": "/tr_run"
+        }
+      },
+      // 第三台服务器配置
+      "/more": {
+        target: "http://localhost:1316",
+        ws: true,
+        changeOrigin: true,
+        pathRewrite: {
+          "^/more": "/more"
         }
       }
     }
@@ -47,7 +57,7 @@ module.exports = {
       title: "Welcome | NJU Image Caption",
       // 在这个页面中包含的块，默认情况下会包含
       // 提取出来的通用 chunk 和 vendor chunk。
-      chunks: ["chunk-vendors", "chunk-common", "index"],
-    },
-  },
+      chunks: ["chunk-vendors", "chunk-common", "index"]
+    }
+  }
 };

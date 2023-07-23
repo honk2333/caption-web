@@ -15,7 +15,7 @@
         ></video>
       </div>
       <h1 class="banner-title">
-          南京大学自然语言处理实验室
+        南京大学自然语言处理实验室
         <div class="subTitle">多模态研究组</div>
       </h1>
       <!-- <div class="search">
@@ -29,7 +29,6 @@
       </div> -->
     </div>
   </div>
-
 </template>
 
 <script>
@@ -58,7 +57,6 @@ export default {
     // searchJobs(keyword) {
     //   this.$router.push({ name: "result", params: { keyword } });
     // },
-   
   },
   mounted() {
     const rootVm = this.$root;
@@ -156,7 +154,7 @@ export default {
           hsla(0, 0%, 100%, 0)
         );
         height: 2px;
-        width:109px;
+        width: 109px;
         top: 50%;
         transform: translateY(-50%);
       }
@@ -212,5 +210,4 @@ export default {
     }
   }
 }
-
 </style>

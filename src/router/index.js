@@ -4,54 +4,53 @@ import VueRouter from "vue-router";
 Vue.use(VueRouter);
 
 const routes = [
-  {
-    path: "/",
-    // name: "index",
-    redirect: '/captions',
-    // component: () => import(/*webpackChunkName: "Home" */ "@/views/Captions.vue"),
-  },
-  {
-    path: "/home",
-    name: "home",
-    component: () => import(/* webpackChunkName: "Results" */ "@/views/Home.vue"),
-  },
-  {
-    path: "/captions",
-    name: "captions",
-    component: () => import(/* webpackChunkName: "Caption" */ "@/views/Captions.vue"),
-  },
-  {
-    path: "/sensitive",
-    name: "sensitive",
-    component: () => import(/* webpackChunkName: "Caption" */ "@/views/Sensitive.vue"),
-  },
-  {
-    path: "*",
-    redirect: "/",
-  },
+    {
+        path: "/",
+        redirect: '/imagecaption',
+    },
+    {
+        path: "/home",
+        name: "home",
+        component: () => import(/* webpackChunkName: "Results" */ "@/views/Home.vue"),
+    },
+    {
+        path: "/imagecaption",
+        name: "imagecaption",
+        component: () => import(/* webpackChunkName: "Caption" */ "@/views/Captions.vue"),
+    },
+    {
+        path: "/sensitive",
+        name: "sensitive",
+        component: () => import(/* webpackChunkName: "Sensitive" */ "@/views/Sensitive.vue"),
+    },
+    {
+        path: "/datasets",
+        name: "datasets",
+        component: () => import(/* webpackChunkName: "Dataset" */ "@/views/Datasets.vue" )
+    },
+    {
+        path: "*",
+        redirect: "/",
+    },
 ];
 
 const router = new VueRouter({
-  mode: "history",
-  // base:
-  //   process.env.NODE_ENV !== "production"
-  //     ? process.env.BASE_URL
-  //     : process.env.BASE_URL  ,
-  routes,
-  scrollBehavior(to, from, savedPosition) {
-    // return { x: 0, y: 0 };
-    if (savedPosition) {
-      return savedPosition;
-    } else {
-      return { x: 0, y: 0 };
-    }
-  },
+    mode: "history",
+    routes,
+    scrollBehavior(to, from, savedPosition) {
+        // return { x: 0, y: 0 };
+        if (savedPosition) {
+            return savedPosition;
+        } else {
+            return {x: 0, y: 0};
+        }
+    },
 });
 
 export default router;
 
 router.onError((err) => {
-  if (err.name === "ChunkLoadError") {
-    router.app.$notify.error("网络资源加载错误");
-  }
+    if (err.name === "ChunkLoadError") {
+        router.app.$notify.error("网络资源加载错误");
+    }
 });

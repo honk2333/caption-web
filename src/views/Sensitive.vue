@@ -7,20 +7,20 @@
           <!-- :beforeUpload="beforeUpload" -->
           <div class="upimg-dragger">
             <a-upload-dragger
-                :beforeUpload="beforeUpload"
-                :showUploadList="false"
-                accept=".jpg, .jpeg, .png, .gif, .ico"
-                action="/tools/ocr_text/"
-                listType="picture"
-                name="file"
-                @change="handleChange"
+              :beforeUpload="beforeUpload"
+              :showUploadList="false"
+              accept=".jpg, .jpeg, .png, .gif, .ico"
+              action="/tools/ocr_text/"
+              listType="picture"
+              name="file"
+              @change="handleChange"
             >
               <p>点击、拖动、或者粘贴图片</p>
             </a-upload-dragger>
           </div>
           <div class="up-img-preview">
             <!--  -->
-            <img :hidden="previewImgHidden" :src="upImage" alt="预览图片"/>
+            <img :hidden="previewImgHidden" :src="upImage" alt="预览图片" />
           </div>
           <!-- </div> -->
         </div>
@@ -36,27 +36,26 @@
               <p>
                 压缩图片:
                 <a-switch
-                    checked-children="开"
-                style="width:auto;min-width:45%;"
-                un-checked-children="关"
-                @change="changeCompressBtn"
+                  checked-children="开"
+                  style="width:auto;min-width:45%;"
+                  un-checked-children="关"
+                  @change="changeCompressBtn"
                 />
                 <!--                    default-checked="false"-->
               </p>
               <p :hidden="hiddenCompressBox">
                 压缩尺寸:
                 <a-input-number
-                    id="compressSizeInput"
-                    v-model="comporessSize"
-                    :min="1"
-                    size="small"
-                    style="width:auto;max-width:45%;"
+                  id="compressSizeInput"
+                  v-model="comporessSize"
+                  :min="1"
+                  size="small"
+                  style="width:auto;max-width:45%;"
                 />
                 <!-- @change="onChange" -->
               </p>
             </div>
           </div>
-
         </div>
       </a-col>
 
@@ -65,22 +64,22 @@
           <div :hidden="hiddenDetectedImg" class="detected-img">
             <a-divider orientation="left">文字检测结果</a-divider>
 
-            <img :src="detectedImg" alt="检测结果图片"/>
+            <img :src="detectedImg" alt="检测结果图片" />
           </div>
 
           <div :hidden="hiddenOcrRaw" class="ocr-raw">
             <a-divider orientation="left">原始结果</a-divider>
-            <CodeHighlight :txt="ocrRaw"/>
+            <CodeHighlight :txt="ocrRaw" />
           </div>
 
           <div :hidden="hiddenOcrText" class="ocr-text">
             <a-divider orientation="left">识别的文字</a-divider>
-            <CodeHighlight :txt="ocrText"/>
+            <CodeHighlight :txt="ocrText" />
           </div>
 
           <div :hidden="hiddenFilterResult" class="filter-result">
             <a-divider orientation="left">违规信息检测结果</a-divider>
-            <CodeHighlight :txt="filterResult"/>
+            <CodeHighlight :txt="filterResult" />
           </div>
         </div>
       </a-col>
@@ -89,50 +88,59 @@
 </template>
 
 <script>
-import Vue from 'vue'
-import CodeHighlight from '../components/CodeHighlight.vue'
-import Message, {Button, Col, Divider, Icon, Input, Layout, Row, Upload} from 'ant-design-vue'
-import 'ant-design-vue/dist/antd.css';
-import {TrSensitive} from '@/helper/api.js'
+import Vue from "vue";
+import CodeHighlight from "../components/CodeHighlight.vue";
+import Message, {
+  Button,
+  Col,
+  Divider,
+  Icon,
+  Input,
+  Layout,
+  Row,
+  Upload
+} from "ant-design-vue";
+import "ant-design-vue/dist/antd.css";
+import { TrSensitive } from "@/helper/api.js";
 
 // const axios = require('axios')
-Vue.use(Message)
+Vue.use(Message);
 
-Vue.use(Button)
-Vue.use(Layout)
-Vue.use(Input)
-Vue.use(Row)
-Vue.use(Col)
-Vue.use(Icon)
-Vue.use(Divider)
-Vue.use(Upload)
+Vue.use(Button);
+Vue.use(Layout);
+Vue.use(Input);
+Vue.use(Row);
+Vue.use(Col);
+Vue.use(Icon);
+Vue.use(Divider);
+Vue.use(Upload);
 
 // 获取上传对象的临时链接
 function getObjectURL(file) {
-  var url = null
+  var url = null;
   if (window.createObjectURL != undefined) {
-    url = window.createObjectURL(file)
+    url = window.createObjectURL(file);
   } else if (window.URL != undefined) {
     // mozilla(firefox)
-    url = window.URL.createObjectURL(file)
+    url = window.URL.createObjectURL(file);
   } else if (window.webkitURL != undefined) {
     // webkit or chrome
-    url = window.webkitURL.createObjectURL(file)
+    url = window.webkitURL.createObjectURL(file);
   }
-  return url
+  return url;
 }
 
 export default {
-  name: 'Index',
+  name: "Index",
   props: {},
   data() {
     return {
-      upImage: '', // 上传后的图片预览地址
+      upImage: "", // 上传后的图片预览地址
       fileList: [], // 上传图片的列表
-      detectedImg: '', // 检测后的图片
+      detectedImg: "", // 检测后的图片
       ocrRaw: ``, // 返回的原始结果
       ocrText: ``, // 经过提取后的文字结果
-      filterResult: '',
+      filterResult: "",
 
       uploading: false, //状态 原生 上传控件的状态
       previewImgHidden: true, // 状态 预览图片是否隐藏
@@ -142,9 +150,9 @@ export default {
       hiddenOcrText: true, // 状态 是否显示经过提取后的文字结果
       hiddenFilterResult: true,
       comporessSize: 1600,
-      hiddenCompressBox: false,
+      hiddenCompressBox: false
       // themecolor: "rgb(255, 255, 255)",
-    }
+    };
   },
   components: {
     CodeHighlight
@@ -152,153 +160,152 @@ export default {
   methods: {
     changeCompressBtn(checked) {
       if (checked === true) {
-        this.$data.hiddenCompressBox = false
+        this.$data.hiddenCompressBox = false;
       } else {
-        this.$data.hiddenCompressBox = true
+        this.$data.hiddenCompressBox = true;
       }
     },
     handleChange(info) {
-      const status = info.file.status
-      if (status !== 'uploading') {
-        this.$data.fileList = [info.file]
-        this.$data.upImage = getObjectURL(info.file)
-        this.$data.previewImgHidden = false
-        console.log('success')
+      const status = info.file.status;
+      if (status !== "uploading") {
+        this.$data.fileList = [info.file];
+        this.$data.upImage = getObjectURL(info.file);
+        this.$data.previewImgHidden = false;
+        console.log("success");
       }
-      if (status === 'done') {
-        console.log('done')
-        this.$message.success(`${info.file.name} file uploaded successfully.`)
-      } else if (status === 'error') {
-        this.$message.error(`${info.file.name} file upload failed.`)
-        console.log('error')
+      if (status === "done") {
+        console.log("done");
+        this.$message.success(`${info.file.name} file uploaded successfully.`);
+      } else if (status === "error") {
+        this.$message.error(`${info.file.name} file upload failed.`);
+        console.log("error");
       }
     },
     beforeUpload(file) {
-      this.fileList = [file]
-      return false
+      this.fileList = [file];
+      return false;
     },
     handleUpload() {
       if (this.fileList.length < 1) {
-        this.$message.warning('还没有选择图片')
-        return
+        this.$message.warning("还没有选择图片");
+        return;
       }
 
-      const formData = new FormData()
+      const formData = new FormData();
       this.fileList.forEach(file => {
-        formData.append('file', file)
-      })
+        formData.append("file", file);
+      });
       if (this.$data.hiddenCompressBox === true) {
-        formData.append('compress', 0)
+        formData.append("compress", 0);
       } else {
-        formData.append('compress', this.$data.comporessSize)
+        formData.append("compress", this.$data.comporessSize);
       }
 
-      this.isOCRing = true
-      this.uploading = true
+      this.isOCRing = true;
+      this.uploading = true;
 
-      const _this = this
-      TrSensitive(formData).then(response => {
-        _this.$data.detectedImg = response['data']['img_detected']
+      const _this = this;
+      TrSensitive(formData)
+        .then(response => {
+          _this.$data.detectedImg = response["data"]["img_detected"];
 
-        _this.$data.ocrRaw = ''
-        _this.$data.ocrText = ''
-        _this.$data.filterResult = ''
+          _this.$data.ocrRaw = "";
+          _this.$data.ocrText = "";
+          _this.$data.filterResult = "";
 
-        let nextLineHeight = 0 // 下一行的高度
+          let nextLineHeight = 0; // 下一行的高度
 
-        const raw_data = response['data']['raw_out']
-        for (let i = 0; i < raw_data.length; i++) {
-          _this.$data.ocrRaw += JSON.stringify(raw_data[i]) + '\r'
+          const raw_data = response["data"]["raw_out"];
+          for (let i = 0; i < raw_data.length; i++) {
+            _this.$data.ocrRaw += JSON.stringify(raw_data[i]) + "\r";
 
-          // 合并同一行的数据
-          if (i < raw_data.length - 1) {
-            nextLineHeight = raw_data[i + 1][0][1]
-            // 判断判断同一行的依据是 两段的行高差 小于 行高的一半
-            if (
+            // 合并同一行的数据
+            if (i < raw_data.length - 1) {
+              nextLineHeight = raw_data[i + 1][0][1];
+              // 判断判断同一行的依据是 两段的行高差 小于 行高的一半
+              if (
                 Math.abs(raw_data[i][0][1] - nextLineHeight) <
                 raw_data[i][0][3] / 2
-            ) {
-              _this.$data.ocrText += raw_data[i][1] + ' '
+              ) {
+                _this.$data.ocrText += raw_data[i][1] + " ";
+              } else {
+                _this.$data.ocrText += raw_data[i][1] + "\r";
+              }
             } else {
-              _this.$data.ocrText += raw_data[i][1] + '\r'
+              _this.$data.ocrText += raw_data[i][1];
             }
-          } else {
-            _this.$data.ocrText += raw_data[i][1]
+
+            // _this.$data.ocrText += raw_data[i][1] + '\r'
           }
+          _this.$data.filterResult = response["data"]["filter_result"];
 
-          // _this.$data.ocrText += raw_data[i][1] + '\r'
-        }
-        _this.$data.filterResult = response['data']['filter_result']
+          _this.$data.uploading = false;
+          _this.$data.isOCRing = false;
+          _this.$data.hiddenDetectedImg = false;
+          _this.$data.hiddenOcrRaw = false;
+          _this.$data.hiddenOcrText = false;
+          _this.$data.hiddenFilterResult = false;
 
-        _this.$data.uploading = false
-        _this.$data.isOCRing = false
-        _this.$data.hiddenDetectedImg = false
-        _this.$data.hiddenOcrRaw = false
-        _this.$data.hiddenOcrText = false
-        _this.$data.hiddenFilterResult = false
+          _this.$message.success(
+            "成功! 耗时：" + response["data"]["speed_time"] + " 秒"
+          );
+        })
+        .catch(function(error) {
+          // console.log(error)
+          _this.$data.isOCRing = false;
 
-        _this.$message.success(
-            '成功! 耗时：' + response['data']['speed_time'] + ' 秒'
-        )
-      })
-          .catch(function (error) {
-            // console.log(error)
-            _this.$data.isOCRing = false
+          const errorInfo = error.response["msg"] || error.message;
+          _this.$message.error("错误：" + errorInfo);
 
-            const errorInfo = error.response['msg'] || error.message
-            _this.$message.error('错误：' + errorInfo)
-
-            _this.$data.hiddenDetectedImg = true
-            _this.$data.hiddenOcrRaw = true
-            _this.$data.hiddenOcrText = true
-            _this.$data.hiddenFilterResult = true
-          })
+          _this.$data.hiddenDetectedImg = true;
+          _this.$data.hiddenOcrRaw = true;
+          _this.$data.hiddenOcrText = true;
+          _this.$data.hiddenFilterResult = true;
+        });
     }
   },
   watch: {
-    fileList: function (newVal, oldVal) {
+    fileList: function(newVal) {
       if (newVal.length <= 0) {
-        this.hiddenDetectedImg = true
-        this.hiddenOcrRaw = true
-        this.hiddenOcrText = true
-        this.hiddenFilterResult = true
-        // oldVal
+        this.hiddenDetectedImg = true;
+        this.hiddenOcrRaw = true;
+        this.hiddenOcrText = true;
+        this.hiddenFilterResult = true;
       }
-
     }
   },
-  mounted: function () {
+  mounted: function() {
     // console.log('mounted')
-    this.$nextTick(function () {
+    this.$nextTick(function() {
       // Code that will run only after the
       // entire view has been rendered
 
-      const _this = this
-      document.addEventListener('paste', function (event) {
-        var items = event.clipboardData && event.clipboardData.items
-        var file = null
+      const _this = this;
+      document.addEventListener("paste", function(event) {
+        var items = event.clipboardData && event.clipboardData.items;
+        var file = null;
         if (items && items.length) {
           // 检索剪切板items
           for (var i = 0; i < items.length; i++) {
-            if (items[i].type.indexOf('image') !== -1) {
-              file = items[i].getAsFile()
-              break
+            if (items[i].type.indexOf("image") !== -1) {
+              file = items[i].getAsFile();
+              break;
             }
           }
         }
 
         // console.log(file)
         if (file !== null) {
-          _this.$data.fileList = [file]
-          _this.$data.upImage = getObjectURL(file)
-          _this.$data.previewImgHidden = false
+          _this.$data.fileList = [file];
+          _this.$data.upImage = getObjectURL(file);
+          _this.$data.previewImgHidden = false;
         }
-        console.log(_this.$data.fileList)
+        console.log(_this.$data.fileList);
         // 此时file就是剪切板中的图片文件
-      })
-    })
+      });
+    });
   }
-}
+};
 </script>
 
 <style>
@@ -311,13 +318,16 @@ export default {
 /* <<<<<<  覆盖原生样式 */
 .wrapper {
   /*main-color: ;*/
-  position: absolute;
+  /* position: absolute; */
   /*position: relative;*/
-  top: 50px;
+  top: 80px;
   left: 0;
   width: 100%;
+  display: flex;
+  flex-direction: column;
+
+  height: 100vh;
   min-height: 100%;
-  height: auto;
   /*background: rgb(234, 239, 241);*/
 }
 

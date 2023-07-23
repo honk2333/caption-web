@@ -5,7 +5,10 @@
         📷 看图说话
       </h1>
       <div class="search">
-        <input-search :ConfirmLoading:="ConfirmLoading" @search="generateCaption"></input-search>
+        <input-search
+          :ConfirmLoading="ConfirmLoading"
+          @search="generateCaption"
+        ></input-search>
       </div>
       <!-- <div class="bottom-tips">
         <span class="arrow-down" @click="scrollDown">
@@ -15,44 +18,44 @@
       </div> -->
       <div v-if="results.url" class="result">
         <div align="center">
-          <img :src="results.url" class="result-img" width="300"/>
+          <img :src="results.url" class="result-img" width="300" />
         </div>
         <div class="results-caption">
           <nobr>
             <!--            <b> 描述结果 </b>-->
-            <li style="float:right;cursor:pointer;" @click="play(results.oppo)"> 朗读 🔊</li>
+            <li style="float:right;cursor:pointer;" @click="play(results.oppo)">
+              朗读 🔊
+            </li>
           </nobr>
           <b> 多模态标签融合图像描述模型: &emsp; </b>
-          <p>{{ results.oppo }} </p>
-          <hr>
+          <p>{{ results.oppo }}</p>
+          <hr />
           <b> 基线模型: &emsp; </b>
-          <p>{{ results.baseline }} </p>
+          <p>{{ results.baseline }}</p>
         </div>
       </div>
-
     </div>
-
   </div>
-  <!-- <footer>
-    <Footer></Footer>
-  </footer> -->
 </template>
 
 <script>
 // @ is an alias to /src
-import {watchScrollDirection} from "@/helper/utilities.js";
-import {captionByURL, captionOfOPPO} from "@/helper/api.js"
-import Speech from 'speak-tts'
+import { watchScrollDirection } from "@/helper/utilities.js";
+import { captionByURL, captionOfOPPO } from "@/helper/api.js";
+import Speech from "speak-tts";
+import InputSearch from "@/components/Input-Search.vue";
+import "@/assets/style/global.css"; // 导入全局样式文件
 
 export default {
-  name: "captions",
+  name: "Captions",
+  components: { InputSearch },
   props: {},
   data() {
     return {
       search: "",
       results: {},
       speech: null,
-      ConfirmLoading: true,
+      ConfirmLoading: false
     };
   },
   methods: {
@@ -61,54 +64,58 @@ export default {
       // this.$router.push({ name: "result", params: { keyword } });
       if (param instanceof File) {
         const formData = new FormData();
-        formData.append('file', param);
+        formData.append("file", param);
         // captionByFile(formData).then(data => {
         //   this.results = data;
         //   this.results.url = 'http://njunlp.club:1024' + data.url;
         //   // console.log(this.results.url);
         // }).catch();
-        captionOfOPPO(formData).then(data => {
-          this.results = data;
-          this.results.url = 'http://njunlp.club:1024' + data.url;
-          this.ConfirmLoading = false;
-        }).catch();
+        captionOfOPPO(formData)
+          .then(data => {
+            this.results = data;
+            this.results.url = "http://njunlp.club:80" + data.url;
+            this.ConfirmLoading = false;
+          })
+          .catch();
       } else {
-        captionByURL(param).then(data => {
-          console.log(data);
-          this.results = data;
-          this.results.url = 'http://njunlp.club:1024' + data.url;
-          this.ConfirmLoading = false;
-        }).catch();
+        captionByURL(param)
+          .then(data => {
+            console.log(data);
+            this.results = data;
+            this.results.url = "http://njunlp.club:80" + data.url;
+            this.ConfirmLoading = false;
+          })
+          .catch();
       }
-      this.ConfirmLoading = true
     },
     SpeechInit() {
-      this.speech = new Speech()
-      this.speech.setLanguage('zh-CN')
-      this.speech.init().then(() => {
-      })
+      this.speech = new Speech();
+      this.speech.setLanguage("zh-CN");
+      this.speech.init().then(() => {});
     },
     //播放函数
     play(textContent) {
-      this.speech.speak({
-        text: textContent,// 播放的文本内容
-        listeners: {
-          //开始播放
-          onstart: () => {
-            console.log("Start utterance")
-          },
-          //判断播放是否完毕
-          onend: () => {
-            console.log("End utterance")
-          },
-          //恢复播放
-          onresume: () => {
-            console.log("Resume utterance")
-          },
-        },
-      }).then(() => {
-        console.log("读取成功")
-      })
+      this.speech
+        .speak({
+          text: textContent, // 播放的文本内容
+          listeners: {
+            //开始播放
+            onstart: () => {
+              console.log("Start utterance");
+            },
+            //判断播放是否完毕
+            onend: () => {
+              console.log("End utterance");
+            },
+            //恢复播放
+            onresume: () => {
+              console.log("Resume utterance");
+            }
+          }
+        })
+        .then(() => {
+          console.log("读取成功");
+        });
     },
     //暂停
     paused() {
@@ -117,19 +124,19 @@ export default {
     //从暂停处继续播放
     goahead() {
       this.speech.resume();
-    },
+    }
   },
   mounted() {
     const rootVm = this.$root;
     rootVm.$emit(
-        "home-scrolling",
-        {directionX: 1, directionY: -1},
-        {x: document.body.scrollLeft, y: document.body.scrollTop}
+      "home-scrolling",
+      { directionX: 1, directionY: -1 },
+      { x: document.body.scrollLeft, y: document.body.scrollTop }
     );
-    this.unwatch = watchScrollDirection(window, function (...args) {
+    this.unwatch = watchScrollDirection(window, function(...args) {
       rootVm.$emit("home-scrolling", ...args);
     });
-    this.SpeechInit() // 需要初始化
+    this.SpeechInit(); // 需要初始化
   },
   destroyed() {
     this.unwatch();
@@ -139,67 +146,33 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@keyframes verticalMotion {
-  0% {
-    transform: translateY(6px);
-  }
-  50% {
-    transform: translateY(-6px);
-  }
-  100% {
-    transform: translateY(6px);
-  }
-}
-
-@keyframes scrollToRight {
-  0% {
-    left: -100%;
-  }
-
-  100% {
-    left: 100%;
-  }
-}
-
-
 
 .banner {
-  //height: auto;
   width: 100%;
+  height: 100vh;
   min-height: 100%;
-  //min-height: 400px;
-  //min-width: @main-width;
   display: flex;
   flex-direction: column;
   //text-align: center;
-  //justify-content: center;
+  justify-content: center;
   align-items: center;
-  // background: rgba(51, 112, 255, 0.2);
   background: rgb(234, 239, 241);
-  // background: #222;
-  //padding-top: 120px;
-  //box-sizing: border-box;
-  position: absolute;
+  // position: relative;
 
-  &-title {
+  .banner-title {
+    flex: 1; /* 子元素平均分配剩余空间，实现元素布满整个界面 */
     color: #000000b0;
-
     margin-top: 15%;
-    //min-margin-top: 100px ;
-    //position: absolute;
-
-    //height: 10%;
-    //   color: rgb(245, 245, 247);
     font-size: 45px;
     font-family: STZhongsong, serif;
     font-weight: normal;
-    //align-items: center;text-align
   }
 
   .search {
+    flex: 1; /* 子元素平均分配剩余空间，实现元素布满整个界面 */
     width: 80%;
     max-width: 800px;
-    min-width: 100px;
+    min-width: 150px;
     margin-top: 100px;
     margin-bottom: 40px;
     text-align: center;
@@ -211,7 +184,6 @@ export default {
   .result {
     width: 80%;
     max-width: 800px;
-
     .results-caption {
       margin-top: 20px;
       //width: 90vh;
@@ -219,61 +191,7 @@ export default {
       font-size: 25px;
       font-family: STZhongsong, serif;
       font-weight: normal;
-
-      //float: left;
     }
-
-
-    //.result-img {
-    //  //display: flex;
-    //  //align-items: center;
-    //  //float: left;
-    //  text-align:center;
-    //  //margin-right: 5%;
-    //  //margin: auto;
-    //}
   }
-
-
-  //.bottom-tips {
-  //  position: absolute;
-  //  bottom: 30px;
-  //  width: 50px;
-  //  height: 50px;
-  //  flex-shrink: 0;
-  //
-  //  text-align: center;
-  //
-  //  .arrow-down {
-  //    display: block;
-  //    margin-bottom: 4px;
-  //    width: 100%;
-  //    height: 100%;
-  //    border-radius: 50%;
-  //    border: 1px solid #fff;
-  //    text-align: center;
-  //    line-height: 40px;
-  //    color: #fff;
-  //    cursor: pointer;
-  //    font-size: 21px;
-  //
-  //    i {
-  //      animation: verticalMotion 1.3s infinite linear;
-  //      display: inline-block;
-  //      font-style: normal;
-  //    }
-  //  }
-  //
-  //    // 分割竖线
-  //  .vertical-dashed {
-  //    border-left: 1px dashed #fff;
-  //    height: 30px;
-  //
-  //    display: inline-block;
-  //  }
-  //}
 }
-
-
 </style>
-  

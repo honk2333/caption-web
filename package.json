@@ -19,7 +19,7 @@
   "gitHooks": {},
   "dependencies": {
     "ant-design-vue": "^1.5.3",
-    "axios": "^0.19.2",
+    "axios": "^1.4.0",
     "connect-history-api-fallback": "^1.6.0",
     "core-js": "^3.6.4",
     "element-ui": "^2.13.2",
@@ -36,10 +36,10 @@
     "vue-router": "^3.1.6"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "~4.3.0",
-    "@vue/cli-plugin-eslint": "~4.3.0",
-    "@vue/cli-plugin-router": "~4.3.0",
     "@vue/cli-service": "~4.3.0",
+    "@vue/cli-plugin-router": "~4.3.0",
+    "@vue/cli-plugin-babel": "~4.3.0",
+    "@vue/cli-plugin-eslint": "~4.3.0", 
     "@vue/eslint-config-prettier": "^6.0.0",
     "babel-eslint": "^10.1.0",
     "babel-plugin-component": "^1.1.1",

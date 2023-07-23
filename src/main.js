@@ -1,6 +1,7 @@
 import Vue from "vue";
 
 // 按需引入 element-ui 组件
+import ElementUI from 'element-ui'
 import "element-ui/lib/theme-chalk/index.css";
 import "./helper/registerElementComponents.js";
 
@@ -34,6 +35,8 @@ if (process.env.NODE_ENV !== "production") {
   Vue.config.devtools = true;
 }
 
+Vue.use(ElementUI)
+
 // 使用loading 组件
 // Vue.use(Loading);
 Vue.use(PopupProgress);
@@ -44,7 +47,6 @@ import VueHighlightJS from 'vue-highlightjs'
 Vue.use(VueHighlightJS)
 
 // 注册日期格式化过滤器
-
 Vue.filter("formatDate", formatDate);
 
 Vue.config.productionTip = false;
