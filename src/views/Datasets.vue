@@ -5,33 +5,33 @@
 
       <div class="searchdatasetbyimgid">
         <el-input
-          v-model="param1"
-          clearable
-          placeholder="请输入图片ID进行搜索"
-          type="text"
-          @keypress.enter="SearchById"
+            v-model="param1"
+            clearable
+            placeholder="请输入图片ID进行搜索"
+            type="text"
+            @keypress.enter="SearchById"
         >
           <el-button
-            slot="append"
-            icon="el-icon-search"
-            type="primary"
-            @click="SearchById"
+              slot="append"
+              icon="el-icon-search"
+              type="primary"
+              @click="SearchById"
           >
             搜索
           </el-button>
         </el-input>
         <el-input
-          v-model="param2"
-          clearable
-          placeholder="请输入行号进行跳转"
-          type="text"
-          @keypress.enter="SearchByLine"
+            v-model="param2"
+            clearable
+            placeholder="请输入行号进行跳转"
+            type="text"
+            @keypress.enter="SearchByLine"
         >
           <el-button
-            slot="append"
-            icon="el-icon-search"
-            type="primary"
-            @click="SearchByLine"
+              slot="append"
+              icon="el-icon-search"
+              type="primary"
+              @click="SearchByLine"
           >
             跳转
           </el-button>
@@ -40,9 +40,10 @@
       <div class="show-dataset">
         <h3>图片id: {{ adata.img_id }}</h3>
         <h3>数据行号： {{ adata.line_id }}</h3>
-        <hr />
+        <hr/>
         <h3>{{ adata.title }}</h3>
-        <img :src="adata.img_path" alt="Image" />
+        <h3>{{ adata.trans }}</h3>
+        <img :src="adata.img_path" alt="Image"/>
         <!--      <p> Entity Number: {{ adata.ent_num }} </p>-->
         <!--      <p> Object Number: {{ adata.obj_num }} </p>-->
       </div>
@@ -53,13 +54,16 @@
       </div>
       <div class="button-div">
         <el-button icon="el-icon-search" type="primary" @click="LastLine">
-          上一条</el-button
+          上一条
+        </el-button
         >
         <el-button icon="el-icon-search" type="primary" @click="NextLine">
-          下一条</el-button
+          下一条
+        </el-button
         >
         <el-button icon="el-icon-search" type="warning" @click="ReportLine">
-          提交错误</el-button
+          提交错误
+        </el-button
         >
       </div>
     </div>
@@ -67,8 +71,8 @@
 </template>
 
 <script>
-import { Button, Input } from "element-ui";
-import { FindById, FindByLine, ReportLine } from "@/helper/api.js";
+import {Button, Input} from "element-ui";
+import {FindById, FindByLine, ReportLine} from "@/helper/api.js";
 
 export default {
   name: "DataSet",
@@ -86,7 +90,8 @@ export default {
         object: "",
         img_id: "",
         line_id: "",
-        relation: ""
+        relation: "",
+        trans: ""
       },
       param1: "",
       param2: ""
@@ -96,12 +101,12 @@ export default {
     SearchById() {
       console.log(this.param1);
       FindById(this.param1)
-        .then(data => {
-          this.adata = data;
-          this.adata.img_path = "http://njunlp.club:80/" + data.img_path;
-          console.log(this.adata.img_path);
-        })
-        .catch();
+          .then(data => {
+            this.adata = data;
+            this.adata.img_path = "http://njunlp.club:80/" + data.img_path;
+            console.log(this.adata.img_path);
+          })
+          .catch();
     },
     SearchByLine() {
       console.log(this.param2);
@@ -132,7 +137,7 @@ export default {
       ReportLine(this.adata.line_id);
     }
   },
-  components: { Button, Input },
+  components: {Button, Input},
   mounted() {
     this.adata.line_id = 0;
     FindByLine(this.adata.line_id).then(data => {
@@ -165,7 +170,7 @@ export default {
   margin-top: 5%;
 }
 
-.searchdatasetbyimgid{
+.searchdatasetbyimgid {
   flex: 1;
 }
 
